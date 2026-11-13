@@ -313,7 +313,7 @@ function pickGroup(after){
   Object.keys(BEDRIJVEN).forEach(function(k){
     var b=h("button",{type:"button","aria-pressed":String(S.group==k)},"Groep "+k,h("small",null,BEDRIJVEN[k].n));
     b.addEventListener("click",function(){S.group=+k;save();after()});g.append(b)});
-  wrap.append(h("p",{class:"fase"},"Jouw groep (staat op je naamkaartje)"),g);
+  wrap.append(h("p",{class:"fase"},"Jouw groep (staat in de kop van je logboek)"),g);
   return wrap;
 }
 function pickRole(after){
@@ -333,7 +333,7 @@ function whoBar(){
   return h("div",{class:"who s"},"Groep "+S.group+" · "+b.n,h("span",{class:"pill"},b.mn),S.role?h("span",null,"· "+ROLLEN[S.role]):null);
 }
 function needGroup(box,redraw){
-  box.append(note("Kies eerst je groep. Dat staat op je naamkaartje.","hint"),pickGroup(redraw));
+  box.append(note("Kies eerst je groep. Die staat in de kop van je logboek.","hint"),pickGroup(redraw));
 }
 /* timer */
 function timer(min){
@@ -431,7 +431,7 @@ function lockStep(id,fase,titel,code,controle,wacht){
     "Houd je werk klaar en wacht op de leerkracht.","De leerkracht controleert en zet een paraaf in je logboek.","Je krijgt een code. Vul ze hieronder in om verder te gaan."],
     controle:controle,wacht:wacht};
 }
-L1.push({id:"l1-1",fase:"Motivatiefase",titel:"Zo werkt het leerpad",min:2,lvl:0,waar:"Naamkaartje",
+L1.push({id:"l1-1",fase:"Motivatiefase",titel:"Zo werkt het leerpad",min:2,lvl:0,waar:"Logboek",
   doe:["Leg de iPad plat in het midden van je groep. Kies hieronder jullie groep en wie met deze iPad werkt.","De afspraken heeft de leerkracht net uitgelegd. Je vindt ze hieronder terug als je twijfelt.","Bij elke stap zie je hoe lang je hebt, welk stemniveau geldt en waar je schrijft.","Klik pas op ‘Volgende’ als je stap af is."],
   body:function(b,redraw){
     b.append(pickGroup(redraw),pickRole(redraw));
@@ -795,7 +795,7 @@ function paperText(t){
    .replace(/Controleer daarna hieronder en verbeter met een andere kleur\./,"Controleer daarna met de leerkracht en verbeter met een andere kleur.")
    .replace(/Controleer je antwoorden hieronder\./,"Controleer je antwoorden met de leerkracht.")
    .replace(/de knop ‘Hulp nodig\?’/,"de hulptekst bij de stap")
-   .replace(/Leg de iPad plat in het midden van je groep\. Kies hieronder jullie groep en wie met deze iPad werkt\./,"Kijk op dia 1 en op je naamkaartje: daar staan je groep en je rol.")
+   .replace(/Leg de iPad plat in het midden van je groep\. Kies hieronder jullie groep en wie met deze iPad werkt\./,"Vul de kop van je logboek in: je groep, bedrijf en rol staan op dia 1.")
    .replace(/Klik pas op ‘Volgende’ als je stap af is\./,"Ga pas naar de volgende stap als je stap af is.")
    .replace(/Controleer met de tabel hieronder of je antwoord sterk is\./,"Controleer met de tabel hierboven of je antwoord sterk is.")
    .replace(/Klik op ‘Naar lesuur 2’\./,"Ga naar lesuur 2.");
