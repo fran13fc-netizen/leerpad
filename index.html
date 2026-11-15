@@ -1,934 +1,387 @@
-<!doctype html><html lang="nl"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui}img{max-width:100%}[hidden]{display:none!important}</style><title>Fast fashion onder de loep - leerpad</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Fast fashion onder de loep · opdrachtenkaart</title>
 <style>
-/* Concept: elke stap is een prijskaartje aan een kledingstuk. Eén kolom, grote knoppen, stemniveau als volumebalk. */
 :root{
-  --bg:#F4F1EA; --surface:#FFFFFF; --surface2:#FAF8F3; --ink:#1B1F24; --ink2:#5B6168; --line:#E2DCD0;
-  --accent:#0E6E6E; --accent-ink:#FFFFFF; --accent-soft:#E3F0EE;
-  --lv0:#9A3B32; --lv0-bg:#F7E9E6; --lv1:#8A6212; --lv1-bg:#F6EDD6; --lv2:#2D6A4A; --lv2-bg:#E3F0E8;
-  --ok:#2D6A4A; --ok-bg:#E3F0E8; --no:#9A3B32; --no-bg:#F7E9E6; --hint-bg:#F8F1DC; --focus:#0E6E6E;
-  --f-head:"Space Grotesk","Avenir Next","Helvetica Neue",Arial,sans-serif;
-  --f-body:"Inter",-apple-system,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  --ink:#1B1F24; --grey:#5B6470; --line:#D7D2C6; --bg:#F6F3EC; --card:#FFFFFF; --soft:#EFEBE0;
+  --c:#0E6E6E; --warn:#B3400F; --ok:#2E7D32;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#15191D; --surface:#1D2227; --surface2:#232A30; --ink:#ECEFF1; --ink2:#A7AEB5; --line:#343C44;
-  --accent:#5FBDB6; --accent-ink:#0C1A19; --accent-soft:#1E3533;
-  --lv0:#F0A29A; --lv0-bg:#3A2123; --lv1:#E8C170; --lv1-bg:#372D15; --lv2:#8BD3A8; --lv2-bg:#1B3226;
-  --ok:#8BD3A8; --ok-bg:#1B3226; --no:#F0A29A; --no-bg:#3A2123; --hint-bg:#352F19; --focus:#5FBDB6; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#15191D; --surface:#1D2227; --surface2:#232A30; --ink:#ECEFF1; --ink2:#A7AEB5; --line:#343C44;
-  --accent:#5FBDB6; --accent-ink:#0C1A19; --accent-soft:#1E3533;
-  --lv0:#F0A29A; --lv0-bg:#3A2123; --lv1:#E8C170; --lv1-bg:#372D15; --lv2:#8BD3A8; --lv2-bg:#1B3226;
-  --ok:#8BD3A8; --ok-bg:#1B3226; --no:#F0A29A; --no-bg:#3A2123; --hint-bg:#352F19; --focus:#5FBDB6; color-scheme:dark}
-
-/* kleur per fase, per groep en voor de timer */
-:root{
-  --fm:#B8390A; --fm-soft:#FDEBDD; --fa:#0E6E6E; --fa-soft:#E3F0EE; --fs:#6D3FC0; --fs-soft:#EEE7FA;
-  --g1:#1D4ED8; --g2:#BE185D; --g3:#3F7D14; --g4:#A16207; --g5:#475569; --on-grp:#FFFFFF;
-  --end-bg:#B3261E; --end-ink:#FFFFFF; --warn-bg:#FBEFD0; --warn-ink:#7A4B00; --warn-line:#D49A1A;
-}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --fm:#F5975B; --fm-soft:#3A2417; --fa:#5FBDB6; --fa-soft:#1E3533; --fs:#B8A2F4; --fs-soft:#2B2342;
-  --g1:#7AA2FF; --g2:#F58BC0; --g3:#9BD66B; --g4:#F2C14E; --g5:#AAB7C8; --on-grp:#101418;
-  --end-bg:#E5625A; --end-ink:#1A0A09; --warn-bg:#3A2E10; --warn-ink:#F3C969; --warn-line:#B98A1E}}
-:root[data-theme="dark"]{
-  --fm:#F5975B; --fm-soft:#3A2417; --fa:#5FBDB6; --fa-soft:#1E3533; --fs:#B8A2F4; --fs-soft:#2B2342;
-  --g1:#7AA2FF; --g2:#F58BC0; --g3:#9BD66B; --g4:#F2C14E; --g5:#AAB7C8; --on-grp:#101418;
-  --end-bg:#E5625A; --end-ink:#1A0A09; --warn-bg:#3A2E10; --warn-ink:#F3C969; --warn-line:#B98A1E}
-.wrap[data-f="m"]{--accent:var(--fm);--accent-soft:var(--fm-soft);--focus:var(--fm)}
-.wrap[data-f="a"]{--accent:var(--fa);--accent-soft:var(--fa-soft);--focus:var(--fa)}
-.wrap[data-f="s"]{--accent:var(--fs);--accent-soft:var(--fs-soft);--focus:var(--fs)}
-.wrap[data-g="1"]{--grp:var(--g1)}.wrap[data-g="2"]{--grp:var(--g2)}.wrap[data-g="3"]{--grp:var(--g3)}
-.wrap[data-g="4"]{--grp:var(--g4)}.wrap[data-g="5"]{--grp:var(--g5)}
-
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.5;
-  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 24px}
-.wrap{max-width:840px;margin:0 auto}
-h1,h2,h3{font-family:var(--f-head);line-height:1.2;margin:0;text-wrap:balance}
-p{margin:0 0 .6em}
-a{color:var(--accent)}
-button,input,select,textarea{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Helvetica,Arial,sans-serif;
+  font-size:21px;line-height:1.45;padding-bottom:env(safe-area-inset-bottom)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;-webkit-tap-highlight-color:transparent}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px 40px}
+h1,h2,h3,p{margin:0}
 
-/* kop */
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);padding-block:12px 10px;border-top:6px solid var(--grp,var(--line));border-bottom:1px solid var(--line)}
-.gdot{display:inline-grid;place-items:center;flex:none;width:28px;height:28px;border-radius:50%;background:var(--grp,var(--accent));color:var(--on-grp);font:700 15px/1 var(--f-head)}
-.gdot::before{content:attr(data-n)}
-.gbadge{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:3px 14px 3px 4px;border-radius:999px;background:var(--surface);border:2px solid var(--grp,var(--line));font-weight:700;font-size:15px}
-.gbadge[hidden]{display:none}
-.top-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.brand{font-family:var(--f-head);font-weight:700;font-size:17px;letter-spacing:.01em;flex:1 1 220px;min-width:0}
-.brand small{display:block;font-family:var(--f-body);font-weight:500;font-size:13px;color:var(--ink2);letter-spacing:0}
-.tabs{display:flex;gap:6px}
-.tab{min-height:44px;padding:0 16px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);font-weight:600;cursor:pointer}
-.tab[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
-.tab:disabled{opacity:.45;cursor:not-allowed}
-.menu-btn{min-height:44px;padding:0 14px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600}
-.prog{display:flex;gap:4px;margin-top:10px}
-.seg{flex:1;height:12px;border-radius:6px;background:var(--c,var(--accent));opacity:.28;border:0;padding:0;cursor:default;min-width:0}
-.seg[data-f="m"]{--c:var(--fm)}.seg[data-f="a"]{--c:var(--fa)}.seg[data-f="s"]{--c:var(--fs)}
-.seg.done{cursor:pointer;opacity:.7}
-.seg.cur{opacity:1;cursor:default;box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--c)}
-.seg.blk{background:repeating-linear-gradient(135deg,var(--c) 0 4px,transparent 4px 8px);opacity:.4}
-.prog-cap{margin-top:8px;font-size:14px;color:var(--ink2);display:flex;justify-content:space-between;align-items:center;gap:8px 16px;flex-wrap:wrap}
-.prog-cap b{color:var(--ink)}
-.stamps{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--ink)}
-.stamps .lbl{margin-left:4px;font-size:14px}
-.st{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;border:2px dashed var(--ink2);color:var(--ink2);font:700 13px/1 var(--f-head)}
-.st::before{content:attr(data-n)}
-.st.on{border:2px solid var(--grp,var(--accent));background:var(--grp,var(--accent));color:var(--on-grp);transform:rotate(-5deg)}
-.st.on::before{content:"\2713";font-size:16px}
-@media (prefers-reduced-motion:no-preference){.st.pop{animation:stampin .6s cubic-bezier(.2,.8,.3,1)}}
-@keyframes stampin{0%{transform:scale(2.6) rotate(-30deg);opacity:0}55%{transform:scale(.88) rotate(4deg);opacity:1}100%{transform:scale(1) rotate(-5deg)}}
+/* groep kiezen */
+.home{padding-top:max(28px,env(safe-area-inset-top))}
+.home h1{font-size:40px;line-height:1.1;letter-spacing:-.01em}
+.home .sub{color:var(--grey);margin-top:8px;font-size:22px}
+.pick{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:26px}
+.pick button{display:flex;align-items:center;gap:16px;text-align:left;padding:18px 20px;border-radius:20px;
+  background:var(--g);color:#fff;min-height:92px;box-shadow:0 2px 0 rgba(0,0,0,.18)}
+.pick button:active{transform:translateY(1px)}
+.pick .nr{flex:none;width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800}
+.pick .t1{font-size:15px;letter-spacing:.08em;opacity:.9;text-transform:uppercase}
+.pick .t2{font-size:30px;font-weight:800;line-height:1.1}
 
-/* kaart = prijskaartje */
-.card{background:var(--surface);border:1.5px solid var(--line);border-top:7px solid var(--accent);border-radius:16px;margin-top:18px;padding:20px 20px 22px}
-@media (prefers-reduced-motion:no-preference){.card.enter{animation:cardin .25s ease-out}}
-@keyframes cardin{from{opacity:0;transform:translateY(10px)}}
-.tagrow{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:12px}
-.tag{display:inline-flex;align-items:center;position:relative;padding:8px 16px 8px 28px;background:var(--accent);color:var(--accent-ink);
-  font-family:var(--f-head);font-weight:700;font-size:17px;letter-spacing:.03em;clip-path:polygon(16px 0,100% 0,100% 100%,16px 100%,0 50%)}
-.tag::before{content:"";position:absolute;left:12px;top:50%;width:8px;height:8px;border-radius:50%;background:var(--surface);transform:translateY(-50%)}
-.fase{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
-.tagrow .fase{background:var(--accent-soft);color:var(--accent);font-weight:700;padding:5px 12px;border-radius:999px}
-.card h2{font-size:30px;margin-bottom:12px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-.chip{display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:4px 12px;border-radius:999px;background:var(--surface2);border:1px solid var(--line);font-size:15px;font-weight:500}
-.chip b{font-weight:700}
-.lvl{border-width:1.5px;font-weight:600}
-.lvl.l0{background:var(--lv0-bg);color:var(--lv0);border-color:var(--lv0)}
-.lvl.l1{background:var(--lv1-bg);color:var(--lv1);border-color:var(--lv1)}
-.lvl.l2{background:var(--lv2-bg);color:var(--lv2);border-color:var(--lv2)}
-.bars{display:inline-flex;gap:3px;align-items:flex-end;height:18px}
-.bars i{display:block;width:5px;border-radius:2px;background:currentColor;opacity:.25}
-.bars i:nth-child(1){height:7px}.bars i:nth-child(2){height:12px}.bars i:nth-child(3){height:18px}
-.bars i.on{opacity:1}
-.meta{display:flex;flex-wrap:wrap;gap:2px 16px;align-items:center;margin:-6px 0 16px;font-size:14.5px;color:var(--ink2);font-weight:500}
-.meta b{color:var(--ink);font-weight:600}
-.meta .lv{display:inline-flex;align-items:center;gap:6px;font-weight:600}
-.meta .lv.l0{color:var(--lv0)}.meta .lv.l1{color:var(--lv1)}.meta .lv.l2{color:var(--lv2)}
-.meta .bars{height:14px}.meta .bars i:nth-child(1){height:5px}.meta .bars i:nth-child(2){height:9px}.meta .bars i:nth-child(3){height:14px}.meta .bars i{width:4px}
-.doe{margin:0 0 16px;padding-left:1.4em;display:grid;gap:10px;font-size:19px}
-.doe li::marker{font-weight:700;color:var(--accent)}
-body:not(.print) .doe{list-style:none;padding-left:0;gap:14px}
-body:not(.print) .doe>li{counter-increment:dn;position:relative;padding-left:50px;min-height:34px}
-body:not(.print) .doe{counter-reset:dn}
-body:not(.print) .doe>li::before{content:counter(dn);position:absolute;left:0;top:-2px;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font:700 17px/34px var(--f-head);text-align:center}
-.lk{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:12px;background:var(--accent);color:var(--accent-ink);font-family:var(--f-head);font-weight:700;font-size:20px;margin-bottom:16px}
+/* bovenbalk */
+.top{background:var(--c);color:#fff;padding:max(14px,env(safe-area-inset-top)) 0 14px}
+.top .wrap{display:flex;align-items:center;gap:14px;padding-bottom:0}
+.top .who{flex:1;min-width:0}
+.top .k{font-size:14px;letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.top .n{font-size:30px;font-weight:800;line-height:1.1}
+.top .mn{font-size:16px;opacity:.92}
+.top .wissel{font-size:16px;padding:10px 14px;border-radius:12px;background:rgba(255,255,255,.18);color:#fff;white-space:nowrap}
+.tabs{display:flex;gap:10px;margin:16px 0 14px}
+.tabs button{flex:1;padding:14px 12px;border-radius:16px;background:var(--soft);font-weight:700;font-size:19px;text-align:center;border:2px solid transparent;line-height:1.2}
+.tabs button small{display:block;font-weight:500;font-size:15px;color:var(--grey)}
+.tabs button.on{background:var(--c);color:#fff;border-color:var(--c)}
+.tabs button.on small{color:rgba(255,255,255,.9)}
 
-.note{border-radius:12px;padding:12px 14px;margin:12px 0;background:var(--surface2);border:1px solid var(--line)}
-.note.hint{background:var(--hint-bg)}
-.note h3{font-size:16px;margin-bottom:6px}
-.note ul{margin:6px 0 0;padding-left:1.2em}
-details{margin:12px 0;border:1px solid var(--line);border-radius:12px;background:var(--surface2)}
-summary{cursor:pointer;min-height:48px;display:flex;align-items:center;padding:0 14px;font-weight:600;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary::before{content:"+";display:inline-block;width:22px;font-weight:700;color:var(--accent)}
-details[open]>summary::before{content:"–"}
-details>div{padding:0 14px 14px}
-.btn{min-height:48px;padding:0 20px;border-radius:12px;border:1.5px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-weight:700;cursor:pointer}
-.btn.ghost{background:transparent;color:var(--accent)}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.btn.small{min-height:40px;padding:0 14px;font-size:16px}
-.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.kn{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.kn b{font-family:var(--f-head);letter-spacing:.04em;font-size:15px;display:block;margin-bottom:4px}
-.kn small{color:var(--ink2);display:block;margin-top:6px;font-size:14px}
+/* stappenbalk */
+.strip{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:flex-end;margin:4px 0 14px}
+.deel{display:flex;flex-direction:column;gap:4px}
+.deel .lab{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--grey);padding-left:2px}
+.deel .row{display:flex;gap:6px}
+.deel+.deel{margin-left:6px;padding-left:10px;border-left:2px solid var(--line)}
+.dot{width:44px;height:44px;border-radius:50%;border:2.5px solid var(--c);background:#fff;color:var(--c);font-weight:800;font-size:19px;
+  display:flex;align-items:center;justify-content:center}
+.dot.done{background:var(--c);color:#fff}
+.dot.now{background:#fff;color:var(--c);box-shadow:0 0 0 4px rgba(0,0,0,.1);transform:scale(1.12)}
 
-.pick{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:8px 0 14px}
-.pick button{min-height:56px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:600;padding:8px 10px;text-align:left}
-.pick button small{display:block;font-weight:500;color:var(--ink2);font-size:13px}
-.pick button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);box-shadow:inset 0 0 0 1.5px var(--accent)}
-.who{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 14px;border-radius:12px;background:var(--accent-soft);margin-bottom:14px;font-weight:600}
-.who.s{padding:0;border-radius:0;background:none;font-size:16px;color:var(--ink);font-weight:600;margin:0 0 14px;gap:8px 10px}
-.who.s .gdot{width:30px;height:30px}
-.who.s .pill{font-size:13px;padding:0 8px;border-width:1px;border-color:var(--grp,var(--accent));font-weight:600}
-.pill{display:inline-block;padding:2px 10px;border-radius:999px;border:1.5px solid var(--accent);font-size:14px;font-weight:600}
+/* stap */
+.card{background:var(--card);border-radius:24px;border:1.5px solid var(--line);padding:24px 26px 22px;box-shadow:0 3px 0 rgba(0,0,0,.05)}
+.card .head{display:flex;align-items:flex-start;gap:16px}
+.card .bignr{flex:none;width:64px;height:64px;border-radius:50%;background:var(--c);color:#fff;font-size:34px;font-weight:800;
+  display:flex;align-items:center;justify-content:center}
+.card h2{font-size:34px;line-height:1.12;letter-spacing:-.01em}
+.card .meta{color:var(--grey);font-size:17px;margin-top:4px}
+.do{margin-top:18px;font-size:24px;line-height:1.4}
+.do b{font-weight:800}
+.do p+p{margin-top:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{display:inline-block;padding:7px 14px;border-radius:999px;background:var(--soft);border:1.5px solid var(--line);font-size:17px;font-weight:600}
+.chip.paraaf{background:#FFF3C9;border-color:#E3C64A}
+.box{margin-top:16px;border-radius:16px;padding:14px 18px;background:var(--soft);font-size:20px}
+.box.say{background:#fff;border:2px dashed var(--c)}
+.box .lab{display:block;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin-bottom:4px;font-weight:700}
+.vraag{background:var(--c);color:#fff;border-radius:18px;padding:16px 20px;margin-top:10px;font-size:26px;font-weight:800;line-height:1.25}
+.vraag .lab{display:block;font-size:14px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;opacity:.9;margin-bottom:2px}
+.stelling{border-left:8px solid var(--c);padding:6px 0 6px 20px;margin-top:18px;font-size:30px;font-weight:800;line-height:1.25}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tag{padding:8px 16px;border-radius:12px;background:var(--c);color:#fff;font-weight:700;font-size:19px}
+.reveal{margin-top:16px}
+.reveal>button{width:100%;text-align:left;padding:14px 18px;border-radius:16px;border:2px solid var(--c);color:var(--c);font-weight:700;font-size:20px;background:#fff}
+.reveal .body{display:none;margin-top:10px}
+.reveal.open>button{background:var(--soft)}
+.reveal.open .body{display:block}
+.four{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.four div{background:var(--soft);border-radius:14px;padding:12px 14px;font-size:19px;line-height:1.35}
+.four b{display:block;font-size:20px;color:var(--c);margin-bottom:2px}
+@media (max-width:640px){.four{grid-template-columns:1fr}}
 
-.timer{display:flex;gap:10px 14px;align-items:center;flex-wrap:wrap;padding:14px 16px 16px;border:2px solid var(--accent);border-radius:14px;margin:0 0 18px;background:var(--accent-soft);position:relative;overflow:hidden}
-.timer .t{font-family:var(--f-head);font-weight:700;font-size:56px;line-height:1;font-variant-numeric:tabular-nums;min-width:3.6ch;color:var(--accent)}
-.timer .btn{margin-left:0}
-.timer .btn:first-of-type{margin-left:auto}
-.timer .tbar{flex:0 0 100%;height:12px;border-radius:6px;background:var(--surface);border:1px solid var(--line);overflow:hidden}
-.timer .tbar i{display:block;height:100%;width:100%;background:var(--accent);border-radius:6px;transition:width .5s linear,background-color .3s}
-.timer .msg{flex:0 0 100%;font-family:var(--f-head);font-weight:700;font-size:22px;min-height:0}
-.timer .msg:empty{display:none}
-.timer.warn{background:var(--warn-bg);border-color:var(--warn-line)}
-.timer.warn .t,.timer.warn .msg{color:var(--warn-ink)}
-.timer.warn .tbar i{background:var(--warn-line)}
-.timer.end{background:var(--end-bg);border-color:var(--end-bg);color:var(--end-ink)}
-.timer.end .t,.timer.end .msg{color:var(--end-ink)}
-.timer.end .btn.ghost{color:var(--end-ink);border-color:var(--end-ink)}
-.timer.end .btn:not(.ghost){background:var(--end-ink);color:var(--end-bg);border-color:var(--end-ink)}
-.timer.end .tbar{background:rgba(255,255,255,.25);border-color:transparent}
-@media (prefers-reduced-motion:no-preference){.timer.end{animation:endpulse 1.2s ease-in-out 3}}
-@keyframes endpulse{50%{transform:scale(1.015)}}
-
-.fb{font-weight:600}.fb.ok{color:var(--ok)}.fb.no{color:var(--no)}
-.q{display:grid;gap:8px;grid-template-columns:1fr auto;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
-.q:first-of-type{border-top:0}
-.q label{font-weight:500}
-.q .ans{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.q input[type=text]{min-height:48px;width:9.5em;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:0 12px}
-.q .res{grid-column:1/-1}
-.sortlist{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:8px}
-.sortlist li{display:flex;gap:10px;align-items:center;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
-.sortlist li span{flex:1}
-.sortlist button{min-width:44px;min-height:44px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;font-weight:700}
-.sortlist .nr{min-width:1.4em;font-family:var(--f-head);font-weight:700;color:var(--accent)}
-.tick{display:flex;gap:12px;align-items:flex-start;min-height:44px;padding:6px 0;cursor:pointer}
-.tick input{width:26px;height:26px;margin-top:1px;accent-color:var(--accent);flex:none}
-
-table.fiche{width:100%;border-collapse:collapse;margin:8px 0}
-table.fiche th,table.fiche td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top;font-size:16px}
-table.fiche th{background:var(--surface2);width:7.5em;font-family:var(--f-head)}
-.scroll{overflow-x:auto}
-table.rondes{border-collapse:collapse;width:100%}
-table.rondes th,table.rondes td{border:1px solid var(--line);padding:10px 12px;text-align:left}
-table.rondes th{background:var(--surface2)}
-
-.lock{border:2px dashed var(--accent);border-radius:14px;padding:16px;background:var(--surface2)}
-.lock.open{border-style:solid;border-color:var(--ok);background:var(--ok-bg)}
-.lockrow{display:flex;gap:18px;align-items:center}
-.lockrow p{margin:0 0 .4em}
-.bigstamp{flex:none;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:92px;height:92px;border-radius:50%;border:5px double var(--grp,var(--ok));color:var(--grp,var(--ok));transform:rotate(-8deg);font-family:var(--f-head);line-height:1}
-.bigstamp small{font-size:12px;font-weight:700;letter-spacing:.14em}
-.bigstamp b{font-size:38px;margin-top:2px}
-@media (prefers-reduced-motion:no-preference){.bigstamp.pop{animation:bigin .7s cubic-bezier(.2,.8,.3,1)}}
-@keyframes bigin{0%{transform:scale(3) rotate(-35deg);opacity:0}55%{transform:scale(.9) rotate(-4deg);opacity:1}100%{transform:scale(1) rotate(-8deg)}}
-.code{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:10px}
-.code input{min-height:52px;width:8em;text-align:center;font-family:var(--f-head);font-size:26px;letter-spacing:.2em;border-radius:10px;border:1.5px solid var(--line);background:var(--surface)}
-
-.nav{position:sticky;bottom:0;z-index:15;margin-top:18px;padding:12px 0 calc(10px + env(safe-area-inset-bottom,0px));background:var(--bg);border-top:1px solid var(--line);display:flex;gap:10px;justify-content:space-between}
-.nav .btn{flex:0 1 auto}
-.nav .next{flex:1 1 auto;max-width:320px;margin-left:auto;font-size:19px}
-.nav .next:not(:disabled)::after{content:" \2192"}
-
-.panel{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;margin-top:14px;padding:16px 18px}
-.panel h3{font-size:19px;margin-bottom:8px}
-.lvl-legend{display:grid;gap:8px;margin:8px 0 12px}
-.lvl-legend .chip{width:100%;border-radius:12px;justify-content:flex-start}
-.punten{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:8px 0}
-.punten div{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.punten b{display:block;font-family:var(--f-head);font-size:26px;line-height:1}
-.punten span{font-size:14px;color:var(--ink2)}
-.muted{color:var(--ink2)}
-
-/* papieren noodversie (#print) */
-body.print{background:#fff;color:#111;font-size:13px;line-height:1.4;padding-block:0}
-body.print .top,body.print #panel,body.print .nav{display:none}
-.pv{max-width:none}
-.pv h1{font-size:24px;margin:0 0 4px}
-.pv h2.les{font-size:19px;margin:20px 0 8px;border-bottom:2px solid #111;padding-bottom:4px;break-after:avoid}
-.pv .stap{break-inside:avoid;border:1.5px solid #777;border-radius:8px;padding:9px 12px;margin:9px 0;background:#fff}
-.pv .stap h3{font-size:16px;margin:0 0 6px}
-.pv .stap .doe{margin:6px 0;gap:3px;font-size:1em}
-.pv .stap .note{margin:6px 0;padding:6px 10px;font-size:12.5px}
-.pv .chips{gap:5px;margin:4px 0 6px}
-.pv .chip{min-height:0;padding:1px 9px;font-size:12px}
-.pv table{border-collapse:collapse;width:100%;margin:6px 0}
-.pv th,.pv td{border:1px solid #777;padding:5px 8px;text-align:left;vertical-align:top;font-size:12.5px}
-.pv th{background:#eee}
-@page{size:A4;margin:12mm}
-@media (max-width:520px){body{font-size:17px}.card{padding:16px}.card h2{font-size:24px}.q{grid-template-columns:1fr}.timer .t{font-size:46px}.gbadge{order:5}}
-</style>
-
-</head><body><div class="wrap">
-  <header class="top">
-    <div class="top-row">
-      <div class="brand">Fast fashion onder de loep<small>Leerpad voor 4BEW1</small></div>
-      <div class="gbadge" id="gb" hidden></div>
-      <div class="tabs" id="tabs"></div>
-      <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="panel">Menu</button>
-    </div>
-    <div class="prog" id="prog" aria-hidden="true"></div>
-    <div class="prog-cap" id="cap"></div>
-  </header>
-  <div id="panel" class="panel" hidden></div>
-  <main id="main"></main>
-</div>
-
-<script>
-(function(){
-"use strict";
-var $=function(s,r){return (r||document).querySelector(s)};
-function h(tag,attrs){
-  var e=document.createElement(tag);
-  if(attrs)for(var k in attrs){var v=attrs[k];if(v==null||v===false)continue;
-    if(k==="class")e.className=v;else if(k==="html")e.innerHTML=v;
-    else if(k.slice(0,2)==="on")e.addEventListener(k.slice(2),v);
-    else e.setAttribute(k,v===true?"":v);}
-  for(var i=2;i<arguments.length;i++){var c=arguments[i];
-    (Array.isArray(c)?c:[c]).forEach(function(x){if(x==null||x===false)return;e.append(x.nodeType?x:document.createTextNode(x))});}
-  return e;
-}
-/* ---------- opslag ---------- */
-var KEY="ffol-leerpad-v1";
-var S={les:1,idx:{1:0,2:0},max:{1:0,2:0},group:null,role:null,unlocked:{},open:{},val:{},tick:{},teacher:false};
-try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);for(var k in o)S[k]=o[k]}}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
-
-/* ---------- codes (door de leerkracht gegeven) ---------- */
-function hsh(s){var x=5381;String(s).trim().toLowerCase().split("").forEach(function(c){x=((x<<5)+x+c.charCodeAt(0))|0});return (x>>>0).toString(36)}
-var CODE={s1:"yjdlv7",s2:"yjgqad",s3:"yjc922"},MASTER="yjbcb9";
-
-/* ---------- inhoud ---------- */
-var BEDRIJVEN={
- 1:{n:"SHEIN",m:"marge",mn:"marge op verkoop",wat:"SHEIN verkoopt eigen kleding, alleen online (app en website).",
-   art:{vak:"kledingberg",titel:"EU: Shein moet regels consumentenbescherming beter naleven",bron:"ANP, via Welingelichte Kringen · 26 mei 2025 · ± 160 woorden",url:"https://www.welingelichtekringen.nl/economie/eu-shein-moet-regels-consumentenbescherming-beter-naleven",
-     q:["Welke oneerlijke praktijken vonden de onderzoekers bij SHEIN? Noem er twee.","Wat toont het artikel rechtstreeks aan? Welk gevolg voor de kledingberg kan je daaruit afleiden, ook al bewijst de bron dat niet?"],
-     a:["Bijvoorbeeld nepkortingen, valse deadlines die tot snelle aankopen aanzetten, misleidende informatie of duurzaamheidsclaims, moeilijk bereikbaar voor klachten (twee volstaan).","Rechtstreeks aangetoond: SHEIN gebruikte nepkortingen en valse deadlines die tot snelle aankopen aanzetten. Afgeleid, niet bewezen door de bron: zulke impulsaankopen kunnen leiden tot meer kleding die weinig gedragen wordt en sneller weggaat (overconsumptie, kledingberg). Een sterk antwoord maakt dat onderscheid expliciet."]},
-   vraag:"Welke kosten bespaart SHEIN met deze werkwijze, en wat vraagt ze van de leveranciers?",
-   model:"SHEIN bespaart op voorraad en onverkochte kleding (minder afprijzen of vernietigen) en heeft geen winkels. Leveranciers moeten heel snel kleine bestellingen leveren; dat zet druk op hun werknemers (lange werkdagen, zie de bronkaart werknemers).",
-   hulpDoe:"Denk aan: wie maakt het eerste, hoe weet SHEIN wat er verkoopt, en wat gebeurt er daarna?",
-   sdg:"SDG 13 (uitstoot door transport) of SDG 8 (werkweken)",
-   f:{k:"Kleine eerste reeksen, bijbestellen op basis van verkoopgegevens, alleen online verkopen.",
-      o:"Lagere bedrijfskosten (weinig onverkochte voorraad, geen winkels) en meer verkoop door een groot, snel wisselend aanbod.",
-      g:"Druk op leveranciers en werknemers (werkweken tot 75 uur volgens 13 ondervraagden), veel uitstoot door vliegtransport, koopdruk (nepkortingen).",
-      p:"Deels",pt:"de transportkosten zitten in de prijs of de verzendkosten, maar de klimaatschade en de gevolgen voor werknemers niet volledig.",
-      b:"Fortune (13 mei 2024), over Public Eye · Reuters, via BNN Bloomberg (13 juni 2025) · ANP (26 mei 2025)"}},
- 2:{n:"Temu",m:"makelaar",mn:"makelaarsmodel",wat:"Temu is een online marktplaats en verdient als tussenpersoon.",
-   art:{vak:"strategie",titel:"Temu zwaar bestraft door de EU voor de verkoop van illegale producten",bron:"Test-Aankoop · 9 juni 2026",url:"https://www.test-aankoop.be/familie-prive/webshops/nieuws/onderzoek-kwaliteit-temu-shein",
-     q:["Hoeveel producten van Temu en SHEIN samen testte Test-Aankoop, en hoeveel voldeden niet aan de regels?","Waarom kreeg Temu op 28 mei 2026 een boete van 200 miljoen euro? Waarom is controle voor een marktplaats met duizenden verkopers duur?"],
-     a:["Test-Aankoop testte 162 producten van Temu en SHEIN samen (speelgoed, opladers, halskettingen); 112 ervan (69 %) voldeden niet aan de EU-regels.","De Europese Commissie legde Temu op 28 mei 2026 een boete van 200 miljoen euro op, omdat het platform te weinig deed om de risico’s van illegale en onveilige producten in te schatten en aan te pakken (Digital Services Act). Controle is duur, want duizenden externe verkopers zetten voortdurend nieuwe producten online."]},
-   vraag:"Waarom laat Temu pakjes rechtstreeks uit China versturen? Welke kosten bespaart dat, en wat wordt nu duurder?",
-   model:"Temu bespaart op winkels, Europese magazijnen en tussenhandel: lage kosten, heel lage prijzen. Duurder worden nu: € 5 per productcategorie aan invoerrecht en afhandelingsvergoeding (sinds 1 juli en 1 november 2026) en het risico op boetes als de controle tekortschiet. Zulke heffingen tasten het voordeel van de laagste prijs rechtstreeks aan.",
-   hulpDoe:"Vijf dezelfde T-shirts vallen onder één categorie. Een T-shirt en een horloge vallen onder twee categorieën.",
-   sdg:"SDG 12 (veel kleine aankopen, textielafval). Kijk goed wat een bron echt aantoont.",
-   f:{k:"Marktplaats zonder eigen productie of voorraad; externe verkopers sturen heel goedkope producten rechtstreeks naar de klant.",
-      o:"Lage bedrijfskosten (geen voorraad, geen winkels) en inkomsten uit een enorm aanbod en veel kopers.",
-      g:"Veel pakjes per vliegtuig (uitstoot), onduidelijke werkomstandigheden bij leveranciers, textielafval. Onveilige producten zijn een probleem van consumentenbescherming, geen milieubewijs.",
-      p:"Neen of deels",pt:"de klimaatschade van vliegtransport en de afvalverwerking zitten niet volledig in de prijs. De nieuwe EU-regels voor textielafval laten producenten wel een deel van de afvalkosten betalen; het invoerrecht maakt pakjes duurder, maar is geen vergoeding voor de klimaatschade.",
-      b:"VRT NWS (5 februari 2025) · Business & Human Rights Resource Centre (3 december 2024) · VRT NWS (9 september 2025)"}},
- 3:{n:"Zara",m:"marge",mn:"marge op verkoop",wat:"Zara verkoopt eigen kleding in eigen winkels en online.",
-   art:{vak:"kledingberg",titel:"Tweedehandsplatform Zara Pre-Owned van start in de Benelux",bron:"RetailDetail · 6 december 2023 · ± 200 woorden",url:"https://retaildetail.nl/news/mode/tweedehandsplatform-zara-pre-owned-van-start-in-de-benelux",
-     q:["Welke drie dingen kan je doen met Zara Pre-Owned?","Waarom zou een fastfashionbedrijf zelf tweedehands aanbieden? Geef één voordeel voor Zara."],
-     a:["Kleding laten herstellen, tweedehands verkopen aan andere klanten en schenken (aan het Rode Kruis).","Bijvoorbeeld: klanten blijven bij het merk en komen terug naar de winkel, een duurzamer imago, voorbereiding op nieuwe EU-regels over textielafval."]},
-   vraag:"Produceren in Spanje of Portugal is duurder dan in Bangladesh. Waarom kiest Zara er toch deels voor? Wat levert die snelheid op?",
-   model:"Hogere productiekosten, maar Zara kan snel inspelen op wat klanten willen: minder gokken op voorraad, minder afprijzen en meer verkoop tegen de volle prijs. Dat levert hogere opbrengsten op.",
-   hulpDoe:"Gebruik de bronkaart over de strategie: hoe vaak per week krijgen de winkels nieuwe modellen, en hoeveel uur duurt de levering?",
-   sdg:"SDG 13 (transportuitstoot)",
-   f:{k:"Snel nieuwe mode, twee leveringen per week, een groot deel van de productie dicht bij Europa.",
-      o:"Meer verkoop tegen de volle prijs en minder onverkochte voorraad, ondanks hogere productiekosten dichtbij.",
-      g:"Lage lonen in productielanden zoals Bangladesh, transportuitstoot (+10 %), voortdurende stroom nieuwe kleding.",
-      p:"Deels",pt:"de hogere productiekosten zitten in de prijs, de klimaatschade en de lage lonen niet volledig.",
-      b:"Reuters, via BNN Bloomberg (13 juni 2025) · Inditex, Annual report 2024 · WageIndicator (11 december 2023)"}},
- 4:{n:"Primark",m:"marge",mn:"marge op verkoop",wat:"Primark verkoopt eigen kleding vooral in grote fysieke winkels.",
-   art:{vak:"werknemers",titel:"10 jaar na de ramp in textielfabriek Rana Plaza: ‘Het is nog altijd geen pretje om kledingwerker in Bangladesh te zijn’",bron:"VRT NWS · 23 april 2023",url:"https://www.vrt.be/vrtnws/nl/2023/04/04/10-jaar-rana-plaza/",
-     q:["Waarom stortte het gebouw in? Noem twee oorzaken.","Wat veranderde er na de ramp, en wat kost zo’n ramp een merk als Primark, ook al is het niet zijn eigen fabriek?"],
-     a:["Bijvoorbeeld drie verdiepingen meer dan toegelaten, slechte bouwmaterialen, waarschuwingen over scheuren werden genegeerd (twee volstaan).","Er kwam een veiligheidsakkoord met inspecties in 1.800 fabrieken; voor een merk betekent zo’n ramp reputatieschade, schadevergoeding (Primark: ± 14 miljoen pond) en extra controlekosten. Het is een historische casus: geen bewijs van de huidige omstandigheden."]},
-   vraag:"Waarom moet Primark zoveel verkopen om winst te maken? Welke kosten bespaart het door niet via een gewone webshop te verkopen?",
-   model:"De winst per stuk is klein; pas bij heel grote aantallen wordt de totale winst groot. Zonder gewone webshop bespaart Primark verzend- en retourkosten, die bij zulke lage prijzen zwaar doorwegen.",
-   hulpDoe:"11,9 pond bedrijfswinst per 100 pond omzet is 11,9 % van de omzet.",
-   sdg:"SDG 12 (duurzamer materiaal, grote aantallen) of SDG 8 (kijk goed hoe actueel je bewijs is)",
-   f:{k:"Zeer lage prijzen, heel grote aantallen, verkoop vooral in grote fysieke winkels.",
-      o:"Veel omzet door volume; lage bedrijfskosten per stuk en geen verzend- of retourkosten.",
-      g:"Veel kleding in omloop (kledingberg); risico’s in de keten (Rana Plaza als historisch voorbeeld).",
-      p:"Deels",pt:"inzameling en meer duurzaam materiaal zitten in de werking, maar de afvalverwerking en risico’s in de keten niet volledig.",
-      b:"EEA (26 maart 2025) · VRT NWS (23 april 2023) · FashionNetwork (2 april 2015) · Primark (2 oktober 2025)"}},
- 5:{n:"Vinted",m:"makelaar",mn:"makelaarsmodel",wat:"Vinted is een tweedehandsplatform en verdient als tussenpersoon.",
-   art:{vak:"strategie",titel:"EU-consumententoezichthouders dwingen Vinted duidelijker te zijn over prijzen en voorwaarden",bron:"ACM (Autoriteit Consument & Markt) · 18 juni 2024 · ± 250 woorden",url:"https://www.acm.nl/nl/publicaties/eu-consumententoezichthouders-dwingen-vinted-duidelijker-te-zijn-over-prijzen-en-voorwaarden",
-     q:["Waarover klaagden consumenten, en wat moet Vinted nu duidelijker tonen?","Waarom is de vergoeding voor kopersbescherming zo belangrijk voor de inkomsten van Vinted? Is die vergoeding hetzelfde als winst?"],
-     a:["Over de verplichte vergoeding voor kopersbescherming, die vooraf niet duidelijk vermeld werd; Vinted moet de totale prijs en de voorwaarden duidelijker tonen.","Verkopers betalen niets, dus de vergoeding van de koper is de belangrijkste bron van inkomsten (omzet). Dat is geen winst: de nettowinst is wat overblijft na alle kosten en belastingen (76,7 van 813,4 miljoen euro in 2024)."]},
-   vraag:"Waarom laat Vinted de koper betalen en niet de verkoper? Wat levert dat het platform op?",
-   model:"Verkopen is gratis, dus meer mensen zetten kleding online; meer aanbod trekt meer kopers aan, en elke aankoop levert Vinted een vergoeding op.",
-   hulpDoe:"De koper betaalt de prijs plus 0,70 euro plus 5 % van de prijs. De verkoper krijgt de prijs.",
-   sdg:"SDG 12 (hergebruik) of SDG 8 (kijk wat het dossier echt zegt)",
-   f:{k:"Platform waarop consumenten tweedehands kleding aan elkaar verkopen; de koper betaalt een vergoeding.",
-      o:"Inkomsten uit elke aankoop zonder eigen productie of voorraad; meer aanbod trekt meer kopers.",
-      g:"Verzending veroorzaakt uitstoot; niet elke aankoop vervangt nieuwe kleding; het dossier zegt niets over de werkomstandigheden.",
-      p:"Onvoldoende informatie",pt:"de vermeden uitstoot is een claim van het bedrijf, geen onafhankelijk onderzoek. ‘Onvoldoende informatie’ is hier een sterk antwoord.",
-      b:"Ecotextile News (24 juni 2024) · Vinted (29 april 2025) · ANP (25 maart 2025) · OVAM (3 december 2025)"}}
-};
-var ROLLEN={strategie:"Expert strategie",werknemers:"Expert werknemers",milieu:"Expert milieu",kledingberg:"Expert kledingberg",combi:"Expert milieu én kledingberg (groep van drie)",sw:"Experts strategie en werknemers",mk:"Experts milieu en kledingberg",alle:"Hele groep (één iPad)"};
-var DEEL={sw:["strategie","werknemers"],mk:["milieu","kledingberg"],combi:["milieu","kledingberg"]};
-function rolDekt(role,vak){if(!role)return false;if(role==="alle"||role===vak)return true;var d=DEEL[role];return !!d&&d.indexOf(vak)>=0}
-function artikelVoorRol(){var b=BEDRIJVEN[S.group];if(!b||!S.role)return null;return rolDekt(S.role,b.art.vak)?b.art:null}
-
-/* ---------- hulpfuncties voor onderdelen ---------- */
-function bars(n){return h("span",{class:"bars","aria-hidden":"true"},h("i",{class:n>0?"on":""}),h("i",{class:n>1?"on":""}),h("i",{class:n>2?"on":""}))}
-var LVL=["Niveau 0 · stil","Niveau 1 · fluisteren","Niveau 2 · zacht overleg met je groep"];
-function lvlChip(n){return h("span",{class:"chip lvl l"+n},bars(n),LVL[n])}
-function note(html,cls){return h("div",{class:"note"+(cls?" "+cls:""),html:html})}
-function reveal(key,label,build){
-  var out=h("div");var box=h("div");
-  var btn=h("button",{class:"btn ghost small",type:"button"},label);
-  function draw(){box.innerHTML="";if(S.open[key]){box.append(build());btn.textContent="Verberg";}else{btn.textContent=label}}
-  btn.addEventListener("click",function(){S.open[key]=!S.open[key];save();draw()});
-  out.append(btn,box);draw();return out;
-}
-function tickItem(key,label){
-  var inp=h("input",{type:"checkbox",id:"t-"+key});inp.checked=!!S.tick[key];
-  inp.addEventListener("change",function(){S.tick[key]=inp.checked;save();if(inp.onchg)inp.onchg()});
-  return h("label",{class:"tick",for:"t-"+key},inp,h("span",{html:label}));
-}
-function pickGroup(after){
-  var wrap=h("div");
-  var g=h("div",{class:"pick",role:"group","aria-label":"Kies je groep"});
-  Object.keys(BEDRIJVEN).forEach(function(k){
-    var b=h("button",{type:"button","aria-pressed":String(S.group==k)},"Groep "+k,h("small",null,BEDRIJVEN[k].n));
-    b.addEventListener("click",function(){S.group=+k;save();after()});g.append(b)});
-  wrap.append(h("p",{class:"fase"},"Jouw groep (staat in de kop van je logboek)"),g);
-  return wrap;
-}
-function pickRole(after){
-  var wrap=h("div");
-  function btn(k,t,sm){var b=h("button",{type:"button","aria-pressed":String(S.role==k)},t,h("small",null,sm));b.addEventListener("click",function(){S.role=k;save();after()});return b}
-  var g=h("div",{class:"pick",role:"group","aria-label":"Wie werkt op deze iPad?"},
-    btn("sw","Strategie + werknemers","samen op deze iPad"),btn("mk","Milieu + kledingberg","samen op deze iPad"),btn("alle","Hele groep","groep van drie, één iPad"));
-  var g2=h("div",{class:"pick",role:"group","aria-label":"Eigen iPad voor één expert"});
-  [["strategie","Strategie","expert"],["werknemers","Werknemers","expert"],["milieu","Milieu","expert"],["kledingberg","Kledingberg","expert"],["combi","Milieu én kledingberg","groep van drie"]].forEach(function(x){g2.append(btn(x[0],x[1],x[2]))});
-  var own=["strategie","werknemers","milieu","kledingberg","combi"].indexOf(S.role)>=0;
-  wrap.append(h("p",{class:"fase"},"Wie werkt op deze iPad? (zie dia 1)"),g,
-    h("details",{open:own},h("summary",null,"Heeft elke leerling een eigen iPad?"),h("div",null,g2)));
-  return wrap;
-}
-function whoBar(){
-  var b=BEDRIJVEN[S.group];if(!b)return null;
-  return h("div",{class:"who s"},h("span",{class:"gdot","data-n":S.group,"aria-hidden":"true"}),"Groep "+S.group+" · "+b.n,h("span",{class:"pill"},b.mn),S.role?h("span",null,"· "+ROLLEN[S.role]):null);
-}
-function needGroup(box,redraw){
-  box.append(note("Kies eerst je groep. Die staat in de kop van je logboek.","hint"),pickGroup(redraw));
-}
 /* timer */
-function timer(min){
-  var total=min*60,left=total,t=null,run=false,endAt=0;
-  var d=h("span",{class:"t","aria-live":"off"});var msg=h("span",{class:"msg","aria-live":"polite"});
-  var fill=h("i");var bar=h("div",{class:"tbar","aria-hidden":"true"},fill);
-  var box=h("div",{class:"timer",role:"timer","aria-label":"Tijd voor deze stap"});
-  var go=h("button",{class:"btn small",type:"button"},"Start");
-  var rs=h("button",{class:"btn ghost small",type:"button"},"Opnieuw");
-  function fmt(s){var m=Math.floor(s/60),x=s%60;return m+":"+(x<10?"0":"")+x}
-  function draw(){
-    var l=Math.max(0,left);d.textContent=fmt(l);fill.style.width=(100*l/total)+"%";
-    var warn=l>0&&l<=60&&total>90;
-    box.classList.toggle("end",l<=0);box.classList.toggle("warn",warn);
-    msg.textContent=l<=0?"Tijd om. Rond af.":(warn?"Nog minder dan een minuut.":"");
-  }
-  function tick(){left=Math.max(0,Math.ceil((endAt-Date.now())/1000));if(left<=0){left=0;stop()}draw()}
-  function stop(){run=false;clearInterval(t);go.textContent="Start"}
-  go.addEventListener("click",function(){if(run){tick();stop();go.textContent=left>0?"Verder":"Start";draw();return}
-    if(left<=0)left=total;run=true;endAt=Date.now()+left*1000;t=setInterval(tick,250);go.textContent="Pauze"});
-  rs.addEventListener("click",function(){stop();left=total;draw()});
-  draw();box.append(d,go,rs,bar,msg);
-  box._stop=stop;return box;
-}
-/* numerieke zelfcontrole */
-function parseNum(s){
-  s=String(s).toLowerCase().replace(/[€£%\s]|stuks|t-shirts?|euro|pond/g,"");
-  if(/^\d{1,3}(\.\d{3})+(,\d+)?$/.test(s))s=s.replace(/\./g,"").replace(",",".");else s=s.replace(",",".");
-  var n=parseFloat(s);return isNaN(n)?null:n;
-}
-function numQ(key,label,answers,opt){
-  opt=opt||{};var tol=opt.tol==null?0.005:opt.tol;
-  var row=h("div",{class:"q"});var res=h("div",{class:"res"});
-  var inp=h("input",{type:"text",inputmode:"decimal",id:"n-"+key,autocomplete:"off","aria-label":label});inp.value=S.val[key]||"";
-  var btn=h("button",{class:"btn small",type:"button"},"Controleer");
-  var tries=0;
-  function check(){
-    S.val[key]=inp.value;save();var n=parseNum(inp.value);res.innerHTML="";
-    if(n==null){res.append(h("span",{class:"fb no"},"Vul een getal in."));return}
-    var ok=answers.some(function(a){return Math.abs(a-n)<=tol});
-    if(ok){res.append(h("span",{class:"fb ok"},"Juist. "),opt.ok||"")}
-    else{tries++;var alt=opt.alt&&opt.alt(n);
-      res.append(h("span",{class:"fb no"},alt||"Nog niet juist. Reken opnieuw."),
-        tries>1&&opt.expl?h("div",{class:"note hint",html:"<b>Uitleg:</b> "+opt.expl}):null)}
-  }
-  btn.addEventListener("click",check);inp.addEventListener("keydown",function(e){if(e.key==="Enter")check()});
-  row.append(h("label",{for:"n-"+key},label),h("div",{class:"ans"},inp,btn),res);
-  if(S.val[key])setTimeout(check,0);
-  return row;
-}
-function textQ(key,label,test,okMsg,expl){
-  var row=h("div",{class:"q"});var res=h("div",{class:"res"});
-  var inp=h("input",{type:"text",id:"n-"+key,autocomplete:"off","aria-label":label});inp.style.width="13em";inp.value=S.val[key]||"";
-  var btn=h("button",{class:"btn small",type:"button"},"Controleer");var tries=0;
-  function check(){S.val[key]=inp.value;save();res.innerHTML="";
-    if(test(inp.value))res.append(h("span",{class:"fb ok"},"Juist. "),okMsg);
-    else{tries++;res.append(h("span",{class:"fb no"},"Nog niet juist."),tries>1?h("div",{class:"note hint",html:"<b>Uitleg:</b> "+expl}):null)}}
-  btn.addEventListener("click",check);inp.addEventListener("keydown",function(e){if(e.key==="Enter")check()});
-  row.append(h("label",{for:"n-"+key},label),h("div",{class:"ans"},inp,btn),res);
-  if(S.val[key])setTimeout(check,0);return row;
-}
-function sorter(key,items,correct,okTxt){
-  var order=S.val[key]&&S.val[key].length===items.length?S.val[key].slice():items.map(function(_,i){return i});
-  var ul=h("ul",{class:"sortlist"});var res=h("div");
-  function draw(){ul.innerHTML="";order.forEach(function(ix,pos){
-    var up=h("button",{type:"button","aria-label":"Naar boven"},"▲"),dn=h("button",{type:"button","aria-label":"Naar beneden"},"▼");
-    up.disabled=pos===0;dn.disabled=pos===order.length-1;
-    up.addEventListener("click",function(){var t=order[pos-1];order[pos-1]=order[pos];order[pos]=t;S.val[key]=order.slice();save();draw()});
-    dn.addEventListener("click",function(){var t=order[pos+1];order[pos+1]=order[pos];order[pos]=t;S.val[key]=order.slice();save();draw()});
-    ul.append(h("li",null,h("span",{class:"nr"},String(pos+1)),h("span",null,items[ix]),up,dn))})}
-  draw();
-  var btn=h("button",{class:"btn small",type:"button"},"Controleer volgorde");
-  btn.addEventListener("click",function(){res.innerHTML="";var ok=order.every(function(v,i){return v===correct[i]});
-    res.append(ok?h("span",{class:"fb ok"},okTxt):h("span",{class:"fb no"},"Nog niet juist. Wie begint er, en wanneer staat het model online?"))});
-  return h("div",null,ul,btn,res);
-}
+.timer{display:flex;align-items:center;gap:14px;margin-top:16px;padding:10px 16px;border-radius:18px;background:var(--soft);flex-wrap:wrap}
+.timer .t{font-size:46px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1;min-width:150px}
+.timer .lbl{color:var(--grey);font-size:16px;flex:1;min-width:120px}
+.timer button{padding:14px 22px;border-radius:14px;background:var(--c);color:#fff;font-weight:800;font-size:20px;min-width:104px}
+.timer button.sec{background:#fff;color:var(--ink);border:2px solid var(--line)}
+.timer.low{background:#FCE9C8}
+.timer.low .t{color:var(--warn)}
+.timer.end{background:#B3261E}
+.timer.end .t,.timer.end .lbl{color:#fff}
+.timer.end button{background:#fff;color:#B3261E}
+@keyframes blink{50%{opacity:.35}}
+.timer.end .t{animation:blink 1s steps(2,start) infinite}
 
-/* ---------- afspraken en punten (hergebruikt) ---------- */
-function afsprakenNode(){
-  var w=h("div");
-  w.append(h("h3",null,"Stemniveau bij elke stap"),
-    h("div",{class:"lvl-legend"},lvlChip(0),lvlChip(1),lvlChip(2)),
-    h("h3",null,"Vijf afspraken"),
-    h("ol",{class:"doe",html:
-      "<li>Je blijft op je plaats. Bij het signaal van de leerkracht ligt je iPad plat en ben je binnen vijf seconden stil.</li>"+
-      "<li>Op je iPad staat alleen het leerpad open. Het geluid staat uit.</li>"+
-      "<li>Je houdt je aan het stemniveau van de stap, ook als je al klaar bent.</li>"+
-      "<li>Hulp nodig? Eerst de knop ‘Hulp nodig?’, dan je groep, dan steek je je hand op. Niet roepen.</li>"+
-      "<li>Bij een stempelpunt wacht je op de leerkracht. Wachten? Doe de extra opdracht.</li>"}),
-    note("<b>Inzet telt mee.</b> Per lesuur kan je 1 punt verdienen: je opdrachten zijn af én je volgt de afspraken. De leerkracht noteert opmerkingen. Bij een tweede opmerking in hetzelfde lesuur verlies je dat inzetpunt."),
-    h("h3",null,"Punten op 10"),
-    h("div",{class:"punten",html:
-      "<div><b>3</b><span>A3-bedrijfsprofiel (groep)</span></div><div><b>2</b><span>Vergelijkingsmatrix (jij)</span></div><div><b>3</b><span>Eindopdracht (jij)</span></div><div><b>2</b><span>Inzet (jij)</span></div>"}));
-  return w;
-}
+/* ronde */
+.ronde{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.ronde>div{border-radius:18px;padding:16px 18px;color:#fff}
+.ronde .l{font-size:14px;letter-spacing:.08em;text-transform:uppercase;opacity:.92}
+.ronde .big{font-size:30px;font-weight:800;line-height:1.12;margin-top:2px}
+.ronde .s{font-size:18px;margin-top:6px}
+@media (max-width:640px){.ronde{grid-template-columns:1fr}}
+.tbl{width:100%;border-collapse:collapse;margin-top:16px;font-size:20px}
+.tbl th{background:var(--c);color:#fff;text-align:left;padding:10px 12px;font-size:16px}
+.tbl td{padding:10px 12px;border-bottom:1.5px solid var(--line)}
+.tbl td:first-child{font-weight:800}
+.ol{margin:14px 0 0;padding-left:0;list-style:none;counter-reset:n}
+.ol li{counter-increment:n;position:relative;padding:8px 0 8px 48px;font-size:21px}
+.ol li::before{content:counter(n);position:absolute;left:0;top:8px;width:34px;height:34px;border-radius:50%;background:var(--c);color:#fff;
+  font-weight:800;display:flex;align-items:center;justify-content:center;font-size:18px}
+.fiche{background:#fff;border:2px solid var(--c);border-radius:16px;padding:14px 18px;font-size:19px}
+.fiche p+p{margin-top:8px}
+.fiche .src{color:var(--grey);font-size:15px;font-style:italic}
+.inv{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-top:16px}
+.inv>div{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;background:var(--g);color:#fff;font-size:24px;font-weight:800}
+.inv>div>span{flex:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:22px}
+.inv>div.own{background:#E4DFD2;color:#6B6558}
+.inv>div.own>span{background:rgba(0,0,0,.08)}
+.inv small{display:block;font-size:14px;font-weight:600}
 
-/* ---------- stappen ---------- */
-var L1=[],L2=[];
-function lockStep(id,fase,titel,code,controle,wacht){
-  return {id:id,fase:fase,titel:titel,min:0,lvl:1,waar:"Logboek",lock:code,doe:[
-    "Houd je werk klaar en wacht op de leerkracht.","De leerkracht controleert en zet een paraaf in je logboek.","Je krijgt een code. Vul ze hieronder in om verder te gaan."],
-    controle:controle,wacht:wacht};
+/* navigatie */
+.nav{display:flex;gap:12px;margin-top:20px}
+.nav button{flex:1;padding:18px 16px;border-radius:18px;font-weight:800;font-size:23px}
+.nav .prev{flex:0 0 32%;background:#fff;border:2px solid var(--line)}
+.nav .next{background:var(--c);color:#fff;box-shadow:0 3px 0 rgba(0,0,0,.22)}
+.nav .next:active{transform:translateY(2px);box-shadow:none}
+.next-up{margin-top:12px;color:var(--grey);font-size:17px;text-align:center}
+.regel{margin-top:22px;padding:14px 18px;border-radius:16px;background:var(--soft);font-size:18px;color:var(--ink);display:flex;gap:12px;align-items:center}
+.regel b{flex:none;background:var(--ink);color:#fff;border-radius:8px;padding:2px 10px;font-size:15px;letter-spacing:.06em}
+.klaar{text-align:center;padding:40px 24px}
+.klaar h2{font-size:38px}
+.klaar p{margin-top:12px;font-size:24px}
+.klaar button{margin-top:24px;padding:18px 28px;border-radius:18px;background:var(--c);color:#fff;font-weight:800;font-size:23px}
+.klaar button.sec{background:#fff;color:var(--ink);border:2px solid var(--line)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+var BED = {"1": {"n": "SHEIN", "mn": "marge op verkoop", "vak": "kledingberg", "hulp": "Denk aan: wie maakt het eerste, hoe weet SHEIN wat er verkoopt, en wat gebeurt er daarna?", "f": {"k": "Kleine eerste reeksen, bijbestellen op basis van verkoopgegevens, alleen online verkopen.", "o": "Lagere bedrijfskosten (weinig onverkochte voorraad, geen winkels) en meer verkoop door een groot, snel wisselend aanbod.", "g": "Druk op leveranciers en werknemers (werkweken tot 75 uur volgens 13 ondervraagden), veel uitstoot door vliegtransport, koopdruk (nepkortingen).", "p": "Deels", "pt": "de transportkosten zitten in de prijs of de verzendkosten, maar de klimaatschade en de gevolgen voor werknemers niet volledig.", "b": "Fortune (13 mei 2024), over Public Eye · Reuters, via BNN Bloomberg (13 juni 2025) · ANP (26 mei 2025)"}}, "2": {"n": "Temu", "mn": "makelaarsmodel", "vak": "strategie", "hulp": "Vijf dezelfde T-shirts vallen onder één categorie. Een T-shirt en een horloge vallen onder twee categorieën.", "f": {"k": "Marktplaats zonder eigen productie of voorraad; externe verkopers sturen heel goedkope producten rechtstreeks naar de klant.", "o": "Lage bedrijfskosten (geen voorraad, geen winkels) en inkomsten uit een enorm aanbod en veel kopers.", "g": "Veel pakjes per vliegtuig (uitstoot), onduidelijke werkomstandigheden bij leveranciers, textielafval. Onveilige producten zijn een probleem van consumentenbescherming, geen milieubewijs.", "p": "Neen of deels", "pt": "de klimaatschade van vliegtransport en de afvalverwerking zitten niet volledig in de prijs. De nieuwe EU-regels voor textielafval laten producenten wel een deel van de afvalkosten betalen; het invoerrecht maakt pakjes duurder, maar is geen vergoeding voor de klimaatschade.", "b": "VRT NWS (5 februari 2025) · Business & Human Rights Resource Centre (3 december 2024) · VRT NWS (9 september 2025)"}}, "3": {"n": "Zara", "mn": "marge op verkoop", "vak": "kledingberg", "hulp": "Gebruik de bronkaart over de strategie: hoe vaak per week krijgen de winkels nieuwe modellen, en hoeveel uur duurt de levering?", "f": {"k": "Snel nieuwe mode, twee leveringen per week, een groot deel van de productie dicht bij Europa.", "o": "Meer verkoop tegen de volle prijs en minder onverkochte voorraad, ondanks hogere productiekosten dichtbij.", "g": "Lage lonen in productielanden zoals Bangladesh, transportuitstoot (+10 %), voortdurende stroom nieuwe kleding.", "p": "Deels", "pt": "de hogere productiekosten zitten in de prijs, de klimaatschade en de lage lonen niet volledig.", "b": "Reuters, via BNN Bloomberg (13 juni 2025) · Inditex, Annual report 2024 · WageIndicator (11 december 2023)"}}, "4": {"n": "Primark", "mn": "marge op verkoop", "vak": "werknemers", "hulp": "11,9 pond bedrijfswinst per 100 pond omzet is 11,9 % van de omzet.", "f": {"k": "Zeer lage prijzen, heel grote aantallen, verkoop vooral in grote fysieke winkels.", "o": "Veel omzet door volume; lage bedrijfskosten per stuk en geen verzend- of retourkosten.", "g": "Veel kleding in omloop (kledingberg); risico’s in de keten (Rana Plaza als historisch voorbeeld).", "p": "Deels", "pt": "inzameling en meer duurzaam materiaal zitten in de werking, maar de afvalverwerking en risico’s in de keten niet volledig.", "b": "EEA (26 maart 2025) · VRT NWS (23 april 2023) · FashionNetwork (2 april 2015) · Primark (2 oktober 2025)"}}, "5": {"n": "Vinted", "mn": "makelaarsmodel", "vak": "strategie", "hulp": "De koper betaalt de prijs plus 0,70 euro plus 5 % van de prijs. De verkoper krijgt de prijs.", "f": {"k": "Platform waarop consumenten tweedehands kleding aan elkaar verkopen; de koper betaalt een vergoeding.", "o": "Inkomsten uit elke aankoop zonder eigen productie of voorraad; meer aanbod trekt meer kopers.", "g": "Verzending veroorzaakt uitstoot; niet elke aankoop vervangt nieuwe kleding; het dossier zegt niets over de werkomstandigheden.", "p": "Onvoldoende informatie", "pt": "de vermeden uitstoot is een claim van het bedrijf, geen onafhankelijk onderzoek. ‘Onvoldoende informatie’ is hier een sterk antwoord.", "b": "Ecotextile News (24 juni 2024) · Vinted (29 april 2025) · ANP (25 maart 2025) · OVAM (3 december 2025)"}}};
+var KLEUR = {"1":"#0E6E6E","2":"#B3400F","3":"#1D4E89","4":"#7A2E6B","5":"#2E7D32"};
+var VRAAG1 = "Hoe verdienen bedrijven geld aan goedkope kleding, en wie betaalt de prijs?";
+var VRAAG2 = "Welk bedrijf weegt winst en gevolgen het best af?";
+var STELLING = "Een gezin met een beperkt kledingbudget maakt een slechte keuze als het bij Temu koopt.";
+var OMSCHRIJVING = "Een bedrijfsstrategie is wat een onderneming wil bereiken (missie, doelstellingen) en met welke keuzes ze dat doet. Elke keuze levert iets op en kost iets, voor het bedrijf en voor andere stakeholders.";
+var CONCLUSIE = "Bedrijven verhogen hun opbrengsten of verlagen hun kosten door keuzes in prijs, snelheid, volume en verkoopkanaal. Een deel van de kosten dragen anderen: werknemers, milieu en samenleving.";
+var DRIE = "<b>SNEL:</b> steeds nieuwe collecties, sommige merken tot 52 ‘microseizoenen’ per jaar (Kassa, 2021). <b>GOEDKOOP:</b> spotgoedkope prijzen en voortdurende promoties (Test-Aankoop, 2026). <b>VEEL:</b> kleding wordt een wegwerpproduct, de Europeaan kocht in 2022 gemiddeld 19 kg textiel (EEA, 2025).";
+var REGEL = "Praat zacht met je groep. Bij het signaal van de leerkracht ben je binnen vijf seconden stil.";
+
+var KEY = "ff-kaart-2";
+var S = {g:null, owner:null, les:1, i:{"1":0,"2":0}, t:{}, open:{}};
+try{ var raw = localStorage.getItem(KEY); if(raw){ var o = JSON.parse(raw); if(o && typeof o==="object"){ S = Object.assign(S,o); } } }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+
+/* beurs: wie gaat waar naartoe */
+function ronBedrijf(g,r){ return String(((+g - r - 1 + 10) % 5) + 1); }
+function naarGroep(g,r){ return String((+g + r - 1) % 5 + 1); }
+function rollen(g){ return g==="5" ? ["strategie","werknemers","milieu + kledingberg","strategie (opnieuw)"] : ["strategie","werknemers","milieu","kledingberg"]; }
+function gl(g){ return "groep "+g+" · "+BED[g].n; }
+
+/* bouwstenen */
+function chips(a,par){ var h = (a||[]).map(function(x){return '<span class="chip">'+x+'</span>';}).join(""); if(par) h += '<span class="chip paraaf">'+par+'</span>'; return h ? '<div class="chips">'+h+'</div>' : ''; }
+function reveal(id,label,html){ var o = !!S.open[id]; return '<div class="reveal'+(o?' open':'')+'"><button data-rv="'+id+'">'+(o?'▾ ':'▸ ')+label+'</button><div class="body">'+html+'</div></div>'; }
+function vraagBox(t,lab){ return '<div class="vraag"><span class="lab">'+(lab||"Onze vraag")+'</span>'+t+'</div>'; }
+
+/* lesuur 1 */
+function stappen1(g){
+  var b = BED[g];
+  return [
+  {deel:"Ontdek", titel:"Jullie zijn investeerders", min:2, body:
+    '<div class="do"><p>Vijf bedrijven vragen jullie geld, maar goedkope kleding heeft een prijs die iemand betaalt.</p>'+
+    '<p>Eerst leer je met je groep één bedrijf door en door kennen: <b>'+b.n+'</b>. Op het einde van lesuur 2 investeer jij zelf in één bedrijf en leg je uit waarom.</p></div>'+
+    '<div class="box"><span class="lab">Doe nu</span>Vul de kop van je logboek in: naam, groep, bedrijf en jouw rol.</div>'+chips(["Logboek p. 1"])},
+  {deel:"Ontdek", titel:"Wat betekent ‘fast’?", min:2, body:
+    '<div class="do"><p>Denk eerst <b>alleen</b> na: wat betekent ‘fast’ in fast fashion?</p><p>Vertel daarna je idee aan je groep.</p></div>'+
+    reveal("1-2-drie","Lees pas daarna: fast fashion in drie woorden",'<div class="box">'+DRIE+'</div>')},
+  {deel:"Ontdek", titel:"Krantenkoppen sorteren", min:4, body:
+    '<div class="do"><p>Leg de acht koppen in het midden en lees er een paar hardop voor.</p><p><b>Sorteer</b> ze in stapels die jullie zelf kiezen en geef elke stapel een naam.</p></div>'+
+    '<div class="box"><span class="lab">Denk hierover na</span>Welke koppen horen samen, en waarom? Waarom staan die bedrijven zo vaak in het nieuws?</div>'+chips(["Krantenknipsels"])},
+  {deel:"Ontdek", titel:"Eén SDG per stapel", min:3, body:
+    '<div class="do"><p>Kies bij elke stapel de <b>SDG</b> die er het sterkst door geraakt wordt.</p><p>Schrijf er één kernwoord bij als uitleg.</p></div>'+chips(["SDG-kaart"])},
+  {deel:"Ontdek", titel:"Onze onderzoeksvraag", min:2, body:
+    '<div class="do"><p>Luister naar de leerkracht. De koppen gaan over vier invalshoeken. Jullie formuleren samen de onderzoeksvraag.</p></div>'+
+    '<div class="tags"><span class="tag">strategie</span><span class="tag">werknemers</span><span class="tag">milieu</span><span class="tag">kledingberg</span></div>'+
+    reveal("1-5-vraag","Toon onze vraag (nadat de klas ze gezegd heeft)", vraagBox(VRAAG1)+'<div class="box"><span class="lab">Doe nu</span>Schrijf de vraag over in je logboek.</div>')+chips(["Logboek p. 1"])},
+  {deel:"Onderzoek", titel:"Lees je eigen bron", min:6, body:
+    '<div class="do"><p>Iedereen is expert van <b>één invalshoek</b> en leest enkel zijn eigen bronkaart (dossier p. 1).</p>'+
+    '<p><b>Markeer het belangrijkste feit</b> en duid aan: feit uit onderzoek, claim van het bedrijf of historische gebeurtenis.</p></div>'+
+    '<div class="box"><span class="lab">Het echte artikel</span>De expert <b>'+b.vak+'</b> leest het artikel via de QR-code in het dossier en beantwoordt de twee leesvragen.</div>'+
+    chips(["Dossier p. 1","iPad (artikel)"])},
+  {deel:"Onderzoek", titel:"Vertel je feit", min:2, body:
+    '<div class="do"><p>Elke expert vertelt zijn feit in <b>één zin</b> aan de groep. Luister goed: de anderen hebben jouw bron niet gelezen.</p></div>'+
+    '<div class="box say"><span class="lab">Zo begin je</span>‘Mijn bron is … Het belangrijkste feit: … Dat is een feit uit onderzoek / een claim van het bedrijf / een historische gebeurtenis.’</div>'},
+  {deel:"Onderzoek", titel:"Doe-opdracht samen", min:8, body:
+    '<div class="do"><p>Maak samen de doe-opdracht op <b>pagina 2 van het dossier</b>.</p><p>Iedereen rekent of denkt mee. De expert strategie noteert.</p></div>'+
+    reveal("1-8-hulp","Hulp nodig? Tik hier",'<div class="box">'+b.hulp+'</div>')+
+    chips(["Dossier p. 2"],"Paraaf 1: de leerkracht komt langs in je logboek")},
+  {deel:"Onderzoek", titel:"A3 · deel 1: ons bewijs", min:6, body:
+    '<div class="do"><p>Elke expert vult <b>tegelijk zijn eigen rij</b> in: het belangrijkste feit, de bron (organisatie en datum) en de soort informatie.</p>'+
+    '<p>Duid bovenaan het verdienmodel van jullie bedrijf aan: marge op verkoop of makelaarsmodel.</p></div>'+chips(["A3-bedrijfsprofiel"])},
+  {deel:"Onderzoek", titel:"A3 · deel 2: de redenering", min:7, body:
+    '<div class="do"><p>Bespreek samen de vier vakken. <b>Elk vak heeft één schrijver.</b></p></div>'+
+    '<div class="four"><div><b>① Keuze</b>Welke keuze maakt het bedrijf? ‘Dit bedrijf kiest voor …’</div>'+
+    '<div><b>② Wat levert het op?</b>Welke opbrengsten stijgen of welke bedrijfskosten dalen?</div>'+
+    '<div><b>③ Gevolgen</b>Welke kosten dragen andere stakeholders? Schrijf een bron op.</div>'+
+    '<div><b>④ In de prijs?</b>Ja, deels of neen? Waarom? Wie betaalt ze dan wel?</div></div>'+chips(["A3-bedrijfsprofiel"])},
+  {deel:"Onderzoek", titel:"A3 · deel 3: één SDG", min:5, body:
+    '<div class="do"><p>Kies de <b>SDG</b> die jullie bedrijf het sterkst raakt.</p>'+
+    '<p>Oordeel: <b>schaadt · gemengd · helpt · onvoldoende informatie</b>. Geef één controleerbaar feit als bewijs.</p></div>'+
+    '<div class="box"><span class="lab">Straks</span>Dit A3 reist in lesuur 2 mee met de ambassadeur van jullie groep.</div>'+
+    chips(["A3-bedrijfsprofiel","SDG-kaart"],"Paraaf 2: de leerkracht controleert jullie A3")},
+  {deel:"Wat leren we?", titel:"Wat is een bedrijfsstrategie?", min:3, body:
+    '<div class="do"><p>Denk even zelf na en bespreek met je buur: wat is het <b>grootste verschil</b> tussen de vijf strategieën, en wat hebben ze <b>gemeen</b>?</p>'+
+    '<p>Daarna formuleert de klas wat een <b>bedrijfsstrategie</b> is.</p></div>'+
+    reveal("1-12-omschrijving","Toon de omschrijving (pas na het klasgesprek)",'<div class="box say"><span class="lab">Schrijf over in je logboek</span>'+OMSCHRIJVING+'</div>')+
+    chips(["Logboek p. 1"])}
+  ];
 }
-L1.push({id:"l1-1",fase:"Motivatiefase",titel:"Zo werkt het leerpad",min:2,lvl:0,waar:"Logboek",
-  doe:["Leg de iPad plat in het midden van je groep. Kies hieronder jullie groep en wie met deze iPad werkt.","De afspraken heeft de leerkracht net uitgelegd. Je vindt ze hieronder terug als je twijfelt.","Bij elke stap zie je hoe lang je hebt, welk stemniveau geldt en waar je schrijft.","Klik pas op ‘Volgende’ als je stap af is."],
-  body:function(b,redraw){
-    b.append(pickGroup(redraw),pickRole(redraw));
-    b.append(h("details",null,h("summary",null,"Afspraken, stemniveau en punten"),h("div",null,afsprakenNode())),
-      note("<b>Stempelpunten.</b> Op drie momenten toon je je werk aan de leerkracht (stempel 1, 2 en 3). Je krijgt een paraaf in je logboek en een code om verder te gaan."));
-  }});
-L1.push({id:"l1-2",fase:"Motivatiefase",titel:"Wat is fast fashion?",min:2,lvl:2,waar:"Niets noteren",
-  doe:["Lees het woord: <b>fast</b>. Wat betekent dat? Wat zou ‘snelle mode’ dan zijn?","Denk eerst één minuut alleen na.","Vertel je idee kort aan je groep.","Klik pas daarna op ‘Toon wat de bronnen zeggen’."],
-  body:function(b){
-    b.append(h("div",{class:"lk",html:"fast = ?"}),
-      reveal("l1-2",function(){return "Toon wat de bronnen zeggen"}(),function(){
-        var g=h("div",{class:"grid"});
-        [["SNEL","Steeds nieuwe collecties. Sommige merken brengen tot 52 ‘microseizoenen’ per jaar uit.","Kassa, 2 sep. 2021"],
-         ["GOEDKOOP","Spotgoedkope prijzen en voortdurende promoties maken kopen heel gemakkelijk.","Test-Aankoop, 17 aug. 2026"],
-         ["VEEL","Kleding wordt een wegwerpproduct: de Europeaan kocht in 2022 gemiddeld 19 kg textiel (kleding, schoenen en huishoudtextiel).","EEA, 26 mrt. 2025"]]
-        .forEach(function(x){g.append(h("div",{class:"kn"},h("b",null,x[0]),x[1],h("small",null,x[2])))});
-        return h("div",null,g,h("p",{style:"margin-top:12px"},h("a",{href:"https://www.test-aankoop.be/familie-prive/duurzaamheid/nieuws/fast-fashion",target:"_blank",rel:"noopener"},"Meer lezen: Test-Aankoop (17 augustus 2026)")));
-      }));
-  }});
-L1.push({id:"l1-3",fase:"Motivatiefase",titel:"Krantenkoppen sorteren",min:4,lvl:2,waar:"Krantenknipsels (A3)",
-  doe:["Pak de krantenknipsels (A3) en leg ze in het midden van je groep.","Lees alle koppen. Ieder leest er een paar hardop voor aan de groep.","Sorteer ze in stapels die jullie zelf kiezen. Geef elke stapel een naam.","Bespreek: welke koppen horen samen, en waarom?"],
-  body:function(b){
-    b.append(h("div",{class:"note",html:"<h3>Richtvragen</h3><ul><li>Welke koppen horen volgens jullie samen, en waarom?</li><li>Over welke bedrijven gaat het telkens?</li><li>Waarom verschijnen die bedrijven zo vaak in het nieuws?</li></ul>"}),
-      h("details",null,h("summary",null,"Knipsel kwijt? Hier staan de acht koppen"),h("div",null,h("ol",{class:"doe",html:
-      "<li>Europese Commissie wil Temu en Shein ‘administratieve kosten’ laten betalen voor pakjes die ze naar Europa sturen <small class='muted'>VRT NWS, 5 februari 2025</small></li>"+
-      "<li>Winst van moederbedrijf Vinted stijgt met 330 procent <small class='muted'>FashionUnited, 29 april 2025</small></li>"+
-      "<li>10 jaar na de ramp in textielfabriek Rana Plaza: ‘Het is nog altijd geen pretje om kledingwerker in Bangladesh te zijn’ <small class='muted'>VRT NWS, 23 april 2023</small></li>"+
-      "<li>Shein beloofde overwerk aan te pakken. Nieuw rapport: werkweken van 75 uur blijven gewoon <small class='muted'>CNN, 13 mei 2024</small></li>"+
-      "<li>EU-burgers kopen meer kleding dan ooit, belasting voor klimaat <small class='muted'>ANP, 25 maart 2025</small></li>"+
-      "<li>Transportuitstoot van Shein schiet omhoog in 2024 <small class='muted'>Reuters, 13 juni 2025</small></li>"+
-      "<li>Tweedehandsplatform Zara Pre-Owned van start in de Benelux <small class='muted'>RetailDetail, 6 december 2023</small></li>"+
-      "<li>Nieuwe EU-regels rond textiel: producenten voortaan verantwoordelijk voor de inzameling en recyclage ervan <small class='muted'>VRT NWS, 9 september 2025</small></li>"}))));
-  },
-  hulp:"Er is geen vaste indeling. Een indeling is goed als jullie ze kunnen verantwoorden."});
-L1.push({id:"l1-4",fase:"Motivatiefase",titel:"Welke SDG raakt dit het sterkst?",min:3,lvl:2,waar:"SDG-kaart (A4)",
-  doe:["Pak jullie SDG-kaart (A4): één per groep.","Kies bij elke stapel koppen één SDG die er het sterkst door geraakt wordt.","Schrijf het nummer en één kernwoord als uitleg op de kaart.","Denkvraag: welke SDG komt in de klas het vaakst terug?"],
-  hulp:"Elke SDG is goed als je je keuze kan verantwoorden. Denk aan werknemers, afval, uitstoot en koopgedrag."});
-L1.push({id:"l1-5",fase:"Motivatiefase",titel:"Onze onderzoeksvraag",min:2,lvl:0,waar:"Logboek p. 1",plenair:true,
-  doe:["Ogen naar de leerkracht. iPad plat.","Samen vatten jullie de stapels samen in vier invalshoeken.","Formuleer samen de onderzoeksvraag.","Schrijf ze over in je logboek (p. 1). Klik daarna op ‘Toon de onderzoeksvraag’ en vergelijk."],
-  body:function(b){
-    b.append(reveal("l1-5","Toon de onderzoeksvraag",function(){
-      var g=h("div",{class:"grid"});
-      [["STRATEGIE","Hoe verdient het bedrijf geld?",""],["WERKNEMERS","Wie maakt de kleding, en hoe?","SDG 8"],["MILIEU","Wat kost het de planeet?","SDG 12 · SDG 13"],["KLEDINGBERG","Wat gebeurt er met wat over is?","SDG 12"]]
-      .forEach(function(x){g.append(h("div",{class:"kn"},h("b",null,x[0]),x[1],x[2]?h("small",null,x[2]):null))});
-      return h("div",null,h("div",{class:"lk"},"Hoe verdienen bedrijven geld aan goedkope kleding, en wie betaalt de prijs?"),g,
-        note("<b>Marge op verkoop:</b> het bedrijf verkoopt zelf kleding (SHEIN, Zara, Primark).<br><b>Makelaarsmodel:</b> het bedrijf is tussenpersoon tussen verkoper en koper (Temu, Vinted)."),
-        note("<b>Jullie opdracht:</b> onderzoek in groep één echt bedrijf en maak een A3-bedrijfsprofiel. In lesuur 2 lezen de andere groepen dat profiel en vergelijken ze de vijf bedrijven. Er is geen juiste rangschikking."));
-    }));
-  }});
-L1.push({id:"l1-6",fase:"Analysefase",titel:"Lees je eigen bron",min:6,lvl:0,waar:"Dossier p. 1",timer:6,
-  doe:["Pak jullie A3-dossier. Lees <b>alleen</b> de bronkaart van jouw vak (pagina 1).","Markeer het belangrijkste feit.","Beslis: is het een feit uit onderzoek, een claim van het bedrijf of een historische gebeurtenis?","De expert strategie bewaakt de tijd van de groep."],
-  body:function(b,redraw){
-    if(!S.group||!S.role){b.append(note("Kies eerst je groep en rol (stap 1 of via het menu).","hint"));if(!S.group)b.append(pickGroup(redraw));if(!S.role)b.append(pickRole(redraw));return}
-    var w=whoBar();b.append(w);
-    var a=artikelVoorRol();
-    if(a){
-      b.append(h("div",{class:"note"},h("h3",null,"Jouw bronkaart verwijst naar het echte artikel"),
-        h("p",null,h("b",null,"“"+a.titel+"”")),h("p",{class:"muted"},a.bron),
-        h("a",{class:"btn",href:a.url,target:"_blank",rel:"noopener",style:"display:inline-flex;align-items:center;text-decoration:none"},"Open het artikel op je iPad")));
-      var qs=h("div",{class:"note"},h("h3",null,"Leesvragen (schrijf je antwoord in je dossier)"),h("ol",{class:"doe"},h("li",null,a.q[0]),h("li",null,a.q[1])));
-      b.append(qs,tickItem("art-"+S.group,"Ik heb de twee leesvragen beantwoord."));
-      b.append(reveal("art-"+S.group,"Controleer je antwoorden",function(){return h("div",{class:"note"},h("p",null,h("b",null,"1 "),a.a[0]),h("p",null,h("b",null,"2 "),a.a[1]))}));
-    }
-  },
-  hulp:"<b>Hoe herken je de soort informatie?</b><ul><li><b>Feit uit onderzoek:</b> iemand die niet voor het bedrijf werkt, onderzocht het (een organisatie, een journalist, de overheid).</li><li><b>Claim van het bedrijf:</b> het bedrijf zegt het zelf (eigen rapport, eigen berekening, eigen plannen).</li><li><b>Historische gebeurtenis:</b> iets uit het verleden. Het zegt niet hoe het vandaag is.</li></ul>"});
-L1.push({id:"l1-7",fase:"Analysefase",titel:"Vertel je feit aan je groep",min:2,lvl:2,waar:"Mondeling",
-  doe:["Om de beurt zegt iedere expert in één zin zijn feit: ‘Mijn feit is … Bron: … (organisatie en datum).’","De anderen luisteren en stellen één vraag als iets onduidelijk is.","Bespreek: is dat een feit uit onderzoek, een claim van het bedrijf of een historische gebeurtenis?"]});
-L1.push({id:"l1-8",fase:"Analysefase",titel:"Doe-opdracht van je bedrijf",min:8,lvl:2,waar:"Dossier p. 2",timer:8,
-  doe:["Jullie maken samen de doe-opdracht op pagina 2 van je dossier. Iedereen rekent of denkt mee.","De expert strategie noteert.","Vul eerst in op papier. Controleer daarna hier.","Klaar met de open vraag? Toon het mogelijk antwoord en vergelijk."],
-  body:function(b,redraw){
-    var c=BEDRIJVEN[S.group];
-    if(!c){needGroup(b,redraw);return}
-    b.append(whoBar());var q=h("div");
-    if(S.group===1){
-      q.append(h("p",null,"Zet de stappen 1 tot 4 in de juiste volgorde."),sorter("sh",["Een leverancier maakt een eerste reeks van 100 à 200 stuks.","SHEIN volgt in de app hoeveel mensen het model bekijken en kopen.","Een ontwerper maakt een nieuw model.","Het model staat online in de app."],[2,0,3,1],"Juist. Daarna volgt stap 5: 5A het model verkoopt goed, SHEIN bestelt snel extra stuks bij. 5B het model verkoopt slecht, SHEIN bestelt niet bij en stopt met het model."));
-    }else if(S.group===2){
-      q.append(h("p",null,"Invoerrecht € 3 en afhandelingsvergoeding € 2 per categorie. Wat is het totaal per pakje?"),
-        numQ("te-a","Pakje A: 4 dezelfde T-shirts (€)",[5],{ok:"1 categorie: € 3 + € 2 = € 5.",expl:"4 dezelfde T-shirts vallen onder 1 categorie: € 3 + € 2."}),
-        numQ("te-b","Pakje B: T-shirt, jeansbroek en oplader (€)",[15],{ok:"3 categorieën: € 9 + € 6 = € 15.",expl:"Drie verschillende producten zijn drie categorieën: 3 × € 3 + 3 × € 2."}),
-        numQ("te-c","Pakje C: 10 paar sokken en 1 trui (€)",[10],{ok:"2 categorieën: € 6 + € 4 = € 10.",expl:"Sokken en een trui zijn twee categorieën: 2 × € 3 + 2 × € 2."}));
-    }else if(S.group===3){
-      q.append(numQ("za-1","Hoeveel keer per jaar krijgt een Zara-winkel nieuwe modellen?",[104],{ok:"2 leveringen per week × 52 weken = 104.",expl:"Twee leveringen per week, 52 weken per jaar."}),
-        textQ("za-2","Bestelling vertrekt maandag om 9 uur. Wanneer ligt ze gemiddeld in een Europese winkel?",function(v){v=v.toLowerCase();return /dinsdag/.test(v)&&/21/.test(v)},"Maandag 9 uur + 36 uur = dinsdag om 21 uur.","Tel 36 uur bij maandag 9 uur: 24 uur is dinsdag 9 uur, nog 12 uur erbij."));
-    }else if(S.group===4){
-      q.append(numQ("pr-1","Bedrijfswinst op één T-shirt van £ 3 (in £)",[0.357,0.36],{tol:0.003,ok:"11,9 % van £ 3 = £ 0,357, ongeveer £ 0,36.",expl:"11,9 % van 3 pond: 3 × 0,119."}),
-        numQ("pr-2","Hoeveel T-shirts minstens voor £ 1.000 winst? (reken met de onafgeronde winst)",[2802],{tol:0.5,ok:"£ 1.000 : £ 0,357 = 2.801,1, dus naar boven afronden: minstens 2.802.",expl:"Deel 1.000 door de onafgeronde winst per T-shirt (0,357) en rond naar boven af.",alt:function(n){if(n===2778)return "Dat klopt met de afgeronde £ 0,36, maar reken met de onafgeronde winst (0,357).";if(Math.abs(n-2801.1)<0.2)return "Je verkoopt geen deel van een T-shirt: rond naar boven af.";return null}}));
-    }else{
-      q.append(numQ("vi-1","Hoeveel betaalt de koper in totaal? (€)",[21.7],{tol:0.005,ok:"€ 20 + € 0,70 + 5 % van € 20 (€ 1) = € 21,70.",expl:"5 % van € 20 is € 1. Tel op: 20 + 0,70 + 1."}),
-        numQ("vi-2","Hoeveel krijgt Lien? (€)",[20],{ok:"Lien krijgt € 20.",expl:"De verkoper betaalt niets en krijgt de prijs."}),
-        numQ("vi-3","Hoeveel krijgt Vinted? (€)",[1.7],{ok:"Vinted krijgt € 1,70. Dat zijn inkomsten, geen winst.",expl:"De vergoeding is € 0,70 + € 1."}),
-        numQ("vi-4","Welk deel van de omzet was nettowinst in 2024? (in %)",[9.4],{tol:0.06,ok:"76,7 : 813,4 ≈ 9,4 %.",expl:"Deel de nettowinst (76,7) door de omzet (813,4) en vermenigvuldig met 100."}));
-    }
-    b.append(h("div",{class:"note"},h("h3",null,"Controleer je antwoorden"),q));
-    b.append(h("div",{class:"note"},h("h3",null,"Open vraag (schrijf op papier)"),h("p",null,c.vraag),
-      reveal("model-"+S.group,"Toon een mogelijk antwoord",function(){return h("div",{class:"note hint"},c.model)})));
-  },
-  hulp:function(){var c=BEDRIJVEN[S.group];return c?c.hulpDoe:null}});
-L1.push(lockStep("l1-9","Analysefase","Stempel 1","s1","Wat controleert de leerkracht? Je bron is gemarkeerd (feit en soort informatie), de leesvragen zijn beantwoord als jij het artikel las, en de doe-opdracht is ingevuld.",
-  "<b>Extra terwijl je wacht:</b> kies in je bronkaart het feit dat jij het sterkst vindt. Leg aan een groepsgenoot uit waarom het ‘feit uit onderzoek’ zwaarder weegt dan ‘claim van het bedrijf’."));
-L1.push({id:"l1-10",fase:"Analysefase",titel:"A3 deel 1: ons bewijs",min:6,lvl:2,waar:"A3, deel 1",timer:6,
-  doe:["Pak het A3-bedrijfsprofiel. Vul bovenaan het bedrijf in en vink het verdienmodel aan.","Elke expert vult <b>tegelijk zijn eigen rij</b> in: naam, belangrijkste feit met bron (organisatie en datum), soort informatie.","Schrijf zo dat een leerling van een andere groep het volgend lesuur kan begrijpen zonder jou."],
-  body:function(b,redraw){
-    var c=BEDRIJVEN[S.group];if(c){b.append(whoBar(),note("Jullie verdienmodel: <b>"+c.mn+"</b>. "+c.wat))}
-    b.append(h("div",{class:"note"},h("h3",null,"Check je rij"),
-      tickItem("a1-1","Het feit heeft een cijfer of een concreet gegeven."),
-      tickItem("a1-2","De bron heeft een organisatie én een datum."),
-      tickItem("a1-3","Ik duidde de soort informatie aan."),
-      tickItem("a1-4","Mijn naam staat bij mijn rij.")));
-  }});
-L1.push({id:"l1-11",fase:"Analysefase",titel:"A3 deel 2: de economische redenering",min:7,lvl:2,waar:"A3, deel 2",timer:7,
-  doe:["Bespreek samen ① tot ④. Elk vak heeft één schrijver: ① en ② expert strategie, ③ expert werknemers, ④ expert milieu.","Zet bij elk feit in ③ een bron en een datum.","Controleer met de tabel hieronder of je antwoord sterk is."],
-  body:function(b){
-    b.append(h("div",{class:"note"},h("h3",null,"Richtvragen"),h("ul",{html:"<li>Welke keuze maakt het bedrijf?</li><li>Welke opbrengsten stijgen of welke bedrijfskosten dalen daardoor?</li><li>Welke kosten draagt niet het bedrijf, maar een andere stakeholder?</li><li>Zitten die kosten in de verkoopprijs?</li>"})),
-      h("div",{class:"scroll"},h("table",{class:"fiche"},
-        h("tr",null,h("th",null,"① Keuze"),h("td",null,"Een bewuste keuze in prijs, snelheid, verkoopkanaal of productie.")),
-        h("tr",null,h("th",null,"② Wat levert ze op?"),h("td",null,"De keuze verhoogt de opbrengsten of verlaagt de bedrijfskosten. Winst = opbrengsten − bedrijfskosten.")),
-        h("tr",null,h("th",null,"③ Andere stakeholders"),h("td",null,"Kosten die niet het bedrijf draagt maar anderen: werknemers, het milieu, de samenleving.")),
-        h("tr",null,h("th",null,"④ In de prijs?"),h("td",null,"Zitten die kosten niet of maar deels in de verkoopprijs, dan betalen anderen een deel van de prijs. Zeg wie.")))),
-      h("div",{class:"note"},tickItem("a2-1","① en ② vullen elkaar aan: de keuze leidt tot meer opbrengsten of lagere kosten."),tickItem("a2-2","③ noemt een concrete stakeholder en heeft een bron met datum."),tickItem("a2-3","④ heeft een aangeduid antwoord én een reden (‘Waarom?’).")));
-  },
-  hulp:"Je zit vast bij ④? Vraag je af: staat die kost op de prijskaart in de winkel of niet? Wie betaalt hem dan?"});
-L1.push({id:"l1-12",fase:"Analysefase",titel:"A3 deel 3: één SDG onder de loep",min:5,lvl:2,waar:"A3, deel 3",timer:5,
-  doe:["Kies één SDG die door jullie bedrijf het sterkst geraakt wordt (gebruik de SDG-kaart).","Beoordeel het effect: schaadt, gemengd of helpt. Of kies ‘onvoldoende informatie’ als het dossier te weinig bewijs bevat.","Schrijf één controleerbaar feit met bron en zeg wat voor informatie het is.","Schrijver: expert kledingberg (in een groep van drie: expert werknemers)."],
-  body:function(b){
-    var c=BEDRIJVEN[S.group];
-    b.append(h("div",{class:"note"},h("h3",null,"Soort informatie bij je bewijs"),h("ul",{html:"<li>Feit uit onderzoek</li><li>Claim van het bedrijf</li><li>Historische gebeurtenis</li><li>Eigen interpretatie van jullie</li>"})),
-      note("<b>‘Onvoldoende informatie’ is ook een sterk antwoord</b> als het bewijs echt ontbreekt."));
-    if(c)b.append(reveal("sdg-"+S.group,"Hulp: waar kan je aan denken?",function(){return h("div",{class:"note hint"},"Voor "+c.n+": "+c.sdg+".")}));
-  }});
-L1.push(lockStep("l1-13","Analysefase","Stempel 2","s2","Wat controleert de leerkracht? Deel 1: elke rij met feit, bron, datum en soort. Deel 2: ① tot ④ ingevuld, bij ③ een bron. Deel 3: SDG met bewijs. Dit A3 gaat in lesuur 2 naar een andere groep.",
-  "<b>Extra terwijl je wacht (lezerstest):</b> geef je A3 aan een groepsgenoot. Kan die in één minuut zeggen welke keuze jullie bedrijf maakt, wat dat oplevert en wie de kosten draagt? Zo niet: maak het duidelijker."));
-L1.push({id:"l1-14",fase:"Synthesefase",titel:"Juist of fout?",min:3,lvl:0,waar:"Wisbordje",plenair:true,
-  doe:["Pak je wisbordje en schrijf J (juist) en F (fout) klaar.","De leerkracht leest uitspraken over de vijf bedrijven. Denk eerst zelf na.","Toon je bordje pas op het teken van de leerkracht.","Na het klasgesprek: toon hieronder de omschrijving en noteer ze in je logboek (p. 1)."],
-  body:function(b){
-    b.append(reveal("l1-14","Toon de omschrijving van bedrijfsstrategie",function(){
-      return h("div",null,h("div",{class:"lk"},"Een bedrijfsstrategie legt vast wat een onderneming wil bereiken (missie en doelstellingen) en met welke keuzes ze dat doet."),
-        note("Elke keuze levert iets op en kost iets, voor het bedrijf en voor andere stakeholders."),
-        note("<b>Marge op verkoop:</b> SHEIN, Zara, Primark. <b>Makelaarsmodel:</b> Temu, Vinted (tussenpersoon)."));
-    }));
-  }});
-L1.push({id:"l1-15",fase:"Synthesefase",titel:"Einde van lesuur 1",min:0,lvl:0,waar:"—",
-  doe:["Laat je A3 op de tafel liggen: je gebruikt het zo meteen.","Houd je logboek bij de hand.","Klik op ‘Naar lesuur 2’."],
-  body:function(b){b.append(note("Jullie A3 is het product van je groep. Een andere groep gaat het straks lezen en gebruiken."))}});
 
 /* lesuur 2 */
-L2.push({id:"l2-1",fase:"Motivatiefase",titel:"Een gezin met een klein budget",min:4,lvl:2,waar:"Mondeling",
-  doe:["Lees: een gezin met een klein kledingbudget koopt bij Temu. <b>Is dat een slechte keuze?</b>","Denk eerst zelf na, in stilte.","Overleg met je groep.","De leerkracht laat twee groepen antwoorden. Klik daarna op ‘Toon de onderzoeksvraag’."],
-  body:function(b){
-    b.append(h("div",{class:"lk"},"Een gezin met een klein kledingbudget koopt bij Temu. Is dat een slechte keuze?"),
-      h("div",{class:"note"},h("h3",null,"Richtvragen"),h("ul",{html:"<li>Waarom kiest een gezin met een beperkt budget voor de laagste prijs?</li><li>Kent de consument alle gevolgen van zijn aankoop?</li>"})),
-      reveal("l2-1","Toon de onderzoeksvraag",function(){return h("div",null,h("div",{class:"lk"},"Welk bedrijf weegt winst en gevolgen het best af?"),
-        note("Let op: SHEIN, Zara en Primark verkopen zelf kleding (marge op verkoop). Temu en Vinted zijn tussenpersoon (makelaarsmodel). Vergelijk daarom eerlijk. Er is geen juiste rangschikking, wel een onderbouwd oordeel."),
-        note("Schrijf de onderzoeksvraag boven je matrix in je logboek (p. 2)."))}));
-  }});
-function compVoorRonde(g,r){return ((g-r-1+10)%5)+1}
-L2.push({id:"l2-2",fase:"Analysefase",titel:"Zo werkt de vergelijkingsronde",min:1,lvl:0,waar:"Logboek p. 2",
-  doe:["Jullie blijven zitten. De A3’s reizen van groep naar groep: de <b>expert werknemers</b> brengt het A3 naar de volgende groep (groep 5 naar groep 1).","Voor ronde 1 brengt elke groep haar eigen A3 al naar de volgende groep. Daarna ligt er in elke ronde het A3 van een andere groep bij jullie. Dat lees je, daarna vul je jouw rij in je matrix in.","Na de controle wacht je op het signaal. Dan brengt de expert werknemers het A3 naar de volgende groep en komt rustig terug naar de eigen plaats.","Schrijf eerst met een donkere pen. Verbeter na de controle met een andere kleur."],
-  body:function(b,redraw){
-    if(!S.group){needGroup(b,redraw);return}
-    b.append(whoBar());
-    var tb=h("table",{class:"rondes"},h("tr",null,h("th",null,"Ronde"),h("th",null,"Bij jullie ligt het A3 van")));
-    for(var r=1;r<=4;r++){var c=compVoorRonde(S.group,r);tb.append(h("tr",null,h("td",null,String(r)),h("td",null,"Groep "+c+" · "+BEDRIJVEN[c].n+" ("+BEDRIJVEN[c].mn+")")))}
-    b.append(h("div",{class:"scroll"},tb),note("Je eigen bedrijf ("+BEDRIJVEN[S.group].n+") vul je niet in: dat staat op jullie eigen A3."),
-      note("<b>Per ronde:</b> lezen (2,5 min) · rij invullen (2 min) · controleren (1 min) · doorgeven. Samen ongeveer 6 minuten."));
-  }});
-function rondeStep(r){
-  return {id:"l2-r"+r,fase:"Analysefase",titel:"Ronde "+r+" van 4",min:6,lvl:0,waar:"Logboek p. 2",timer:6,
-  doe:["Controleer: bovenaan het A3 bij jullie staat het juiste bedrijf. Zo niet, meld het aan de leerkracht.","<b>Lees</b> het A3, vooral deel 1 en 2. Zoek ① de keuze, ② wat ze oplevert, ③ één gevolg met bron en ④ of het in de prijs zit.","<b>Vul</b> de rij van dit bedrijf in je matrix in. Kernwoorden volstaan.","<b>Controleer</b> daarna hieronder en verbeter met een andere kleur."],
-  body:function(b,redraw){
-    if(!S.group){needGroup(b,redraw);return}
-    var ci=compVoorRonde(S.group,r),c=BEDRIJVEN[ci];
-    b.append(h("div",{class:"who"},"Dit A3 ligt nu bij jullie: groep "+ci+" · "+c.n,h("span",{class:"pill"},c.mn)));
-    b.append(note("<b>Eerlijk vergelijken:</b> "+(c.m==="marge"?c.n+" verkoopt zelf kleding (marge op verkoop).":c.n+" is tussenpersoon (makelaarsmodel).")));
-    var key="r"+r+"-"+ci;
-    var ti=tickItem(key,"Mijn rij voor "+c.n+" is ingevuld.");
-    var ctl=h("div");
-    function fiche(extra){return h("div",null,extra?note("Het A3 was leeg of onbruikbaar. Vul je rij in met deze fiche en meld het aan de leerkracht.","hint"):null,
-      h("div",{class:"scroll"},h("table",{class:"fiche"},
-        h("tr",null,h("th",null,"① Keuze"),h("td",null,c.f.k)),h("tr",null,h("th",null,"② Levert op"),h("td",null,c.f.o)),
-        h("tr",null,h("th",null,"③ Gevolgen"),h("td",null,c.f.g,h("br"),h("small",{class:"muted"},"Mogelijke bronnen: "+c.f.b))),
-        h("tr",null,h("th",null,"④ In de prijs?"),h("td",null,h("b",null,c.f.p+": "),c.f.pt)))),
-      note("Er zijn meerdere juiste antwoorden. Wat heb jij anders? Is dat fout, of een andere goede keuze? Verbeter met een andere kleur."));}
-    function draw(){ctl.innerHTML="";
-      if(S.open["f-"+key]){ctl.append(fiche(S.open["fx-"+key]));return}
-      var show=h("button",{class:"btn small",type:"button"},"Toon de controle");show.disabled=!S.tick[key];
-      ti.querySelector("input").onchg=function(){show.disabled=!S.tick[key]};
-      show.addEventListener("click",function(){S.open["f-"+key]=true;save();draw()});
-      var emp=h("button",{class:"btn ghost small",type:"button"},"A3 leeg of onbruikbaar? Toon de fiche nu");
-      emp.addEventListener("click",function(){S.open["f-"+key]=true;S.open["fx-"+key]=true;save();draw()});
-      ctl.append(h("div",{class:"row"},show,emp));}
-    b.append(ti,ctl);draw();
-    b.append(note("<b>Klaar vóór het signaal?</b> Lees deel 3 van dit A3. Welke SDG kozen zij? Ben je het eens met hun oordeel? Zeg het fluisterend aan een groepsgenoot."));
-    var nx=S.group%5+1;
-    b.append(note("<b>Doorgeven:</b> wacht op het signaal van de leerkracht. Dan brengt de expert werknemers dit A3 naar <b>groep "+nx+" · "+BEDRIJVEN[nx].n+"</b> en komt rustig terug. Niet praten onderweg."));
-  }};
+function rondeStap(g,r){
+  var rol = rollen(g)[r-1], naar = naarGroep(g,r), van = ronBedrijf(g,r);
+  var f = BED[g].f;
+  var fiche = '<div class="fiche"><p><b>① Keuze:</b> '+f.k+'</p><p><b>② Levert op:</b> '+f.o+'</p><p><b>③ Gevolgen:</b> '+f.g+'</p><p><b>④ In de prijs?</b> '+f.p+': '+f.pt+'</p><p class="src">Mogelijke bronnen: '+f.b+'</p></div>';
+  return {deel:"Beurs", titel:"Ronde "+r+" · de ambassadeur reist", min:5, body:
+    '<div class="ronde"><div style="background:'+KLEUR[g]+'"><span class="l">Ambassadeur van jullie groep</span><div class="big">expert '+rol+'</div>'+
+    '<div class="s">gaat met jullie A3, de fiche en de kleurkaartjes naar <b>'+gl(naar)+'</b></div></div>'+
+    '<div style="background:'+KLEUR[van]+'"><span class="l">Bij jullie komt</span><div class="big">'+BED[van].n+'</div>'+
+    '<div class="s">de ambassadeur van <b>groep '+van+'</b> komt naar jullie tafel. Luister en vul de rij van '+BED[van].n+' in.</div></div></div>'+
+    '<ol class="ol"><li><b>De ambassadeur vertelt</b> (ongeveer anderhalve minuut): ‘Dit bedrijf kiest voor … Daardoor … Maar … Dat zit wel / deels / niet in de prijs. Onze SDG is …’ en toont het kleurkaartje.</li>'+
+    '<li><b>Luisteraars</b> vullen de rij van dit bedrijf in (logboek p. 2 en 3) en stellen één vraag.</li>'+
+    '<li><b>Controle:</b> de ambassadeur leest de fiche voor. Verbeter in een andere kleur.</li>'+
+    '<li><b>Bij het signaal</b> gaat de ambassadeur naar de volgende groep.</li></ol>'+
+    reveal("2-r"+r+"-fiche","Fiche van "+BED[g].n+" (ambassadeur: pas bij punt 3)",fiche)+
+    '<div class="box"><span class="lab">Let op</span>Je eigen bedrijf vul je niet in: streep het door. De ambassadeur neemt de iPad mee.</div>'+
+    chips(["A3-bedrijfsprofiel","Kleurkaartjes","Logboek p. 2–3"], r===4 ? "Paraaf 3: de leerkracht controleert je matrix" : "")};
 }
-L2.push(rondeStep(1),rondeStep(2),rondeStep(3),rondeStep(4));
-L2.push(lockStep("l2-7","Analysefase","Stempel 3","s3","Wat controleert de leerkracht? Je matrix heeft vier ingevulde rijen, bij ③ staat telkens een bron, ④ is aangeduid en je verbeteringen staan in een andere kleur.",
-  "<b>Extra terwijl je wacht:</b> welk bedrijf draagt volgens jouw matrix de minste kosten zelf? Schrijf op een kladblad één argument met bron. Dat mag je straks hergebruiken."));
-L2.push({id:"l2-8",fase:"Synthesefase",titel:"Zit het in de prijs?",min:3,lvl:0,waar:"Wisbordje",plenair:true,
-  doe:["Kijk naar je kolom ④ in de matrix.","De leerkracht noemt een bedrijf. Schrijf op je wisbordje: JA, DEELS of NEEN (of ‘?’ bij onvoldoende informatie).","Toon je bordje op het teken van de leerkracht.","Bespreek één verschil met de klas."],
-  body:function(b){b.append(h("div",{class:"note"},h("h3",null,"Richtvragen"),h("ul",{html:"<li>Welke kosten zitten niet in de verkoopprijs?</li><li>Wie betaalt ze dan?</li>"})))}});
-L2.push({id:"l2-9",fase:"Synthesefase",titel:"Wie betaalt de prijs?",min:3,lvl:2,waar:"Logboek p. 3",
-  doe:["Reken samen met je groep en schrijf het in je logboek (p. 3).","Controleer je antwoorden hieronder.","Bespreek daarna met de klas de richtvragen."],
-  body:function(b){
-    b.append(h("div",{class:"lk"},"T-shirt € 29: ongeveer 0,6 % gaat naar het loon van de arbeiders. Wat kost een dubbel loon de koper?"),
-      h("p",{class:"muted"},"Bron: Oxfam België, 16 november 2021."),
-      h("div",{class:"note"},
-        numQ("ox-1","Hoeveel euro is 0,6 % van € 29?",[0.17,0.174],{tol:0.004,ok:"0,6 % van € 29 = € 0,174, ongeveer € 0,17.",expl:"0,6 % is 0,006. Vermenigvuldig 29 met 0,006."}),
-        numQ("ox-2","Hoeveel duurder wordt het T-shirt bij een dubbel loon? (€)",[0.17,0.174],{tol:0.004,ok:"Een dubbel loon maakt het T-shirt ongeveer € 0,17 duurder, als alle andere kosten gelijk blijven.",expl:"Dubbel loon betekent het loonbedrag er nog eens bij."})),
-      h("div",{class:"note"},h("h3",null,"Richtvragen"),h("ul",{html:"<li>Welke kosten zitten niet in de verkoopprijs, en wie betaalt ze dan?</li><li>Wat kost een dubbel loon de koper van dit T-shirt?</li><li>Waarom kiezen merken daar dan niet voor?</li>"})),
-      reveal("l2-9","Toon wat je kan vaststellen",function(){return note("De loonkost is maar een klein deel van de verkoopprijs. Een beter loon is dus vooral een keuze van de onderneming. Het merk betaalt met zijn deel van de prijs nog andere kosten, dus dat deel is geen pure winst.")}));
-  }});
-L2.push({id:"l2-10",fase:"Synthesefase",titel:"De SDG-meter",min:3,lvl:1,waar:"Kleurkaartje",
-  doe:["Kijk naar deel 3 van jullie A3 (jullie SDG-oordeel).","De leerkracht noemt een bedrijf. De groep van dat bedrijf toont één kleurkaartje: rood = schaadt, oranje = gemengd, groen = helpt, grijs = onvoldoende informatie.","Eén leerling zegt in één zin welk feit het oordeel bewijst en wat voor informatie het is.","Beantwoord samen: wie betaalt de prijs van goedkope kleding?"],
-  body:function(b){
-    b.append(h("div",{class:"note"},h("h3",null,"Richtvragen"),h("ul",{html:"<li>Is dit bewijs een feit uit onderzoek, een claim van het bedrijf, een historische gebeurtenis of een eigen interpretatie?</li><li>Wie betaalt de prijs van goedkope kleding?</li>"})),
-      reveal("l2-10","Toon de conclusie van de klas",function(){return note("Bedrijven verhogen hun opbrengsten of verlagen hun kosten met keuzes in prijs, snelheid, volume en verkoopkanaal. Een deel van de kosten komt bij andere stakeholders terecht: werknemers, het milieu en de samenleving. Een onderneming is succesvol als ze haar economische verantwoordelijkheid (winst) combineert met haar sociale en ecologische verantwoordelijkheid. Welk bedrijf dat het best doet, hangt af van je argumenten en je bewijs.")}));
-  }});
-L2.push({id:"l2-11",fase:"Synthesefase",titel:"Eindopdracht: jouw oordeel",min:12,lvl:0,waar:"Logboek p. 4",timer:12,
-  doe:["Werk individueel en in stilte. Gebruik je vergelijkingsmatrix.","Beantwoord de vier vragen in je logboek (p. 4).","Er is geen juiste keuze. Je krijgt punten voor je economische argumenten en je bronnen."],
-  body:function(b){
-    b.append(h("ol",{class:"doe",html:
-      "<li><b>Welk bedrijf weegt winst en gevolgen het best af?</b><br><small class='muted'>Eén economisch argument en één bron.</small></li>"+
-      "<li><b>Welk bedrijf doet dat het minst goed?</b><br><small class='muted'>Eén economisch argument en één bron.</small></li>"+
-      "<li><b>Welk concreet advies geef je aan dat bedrijf?</b><br><small class='muted'>Weeg af: wat kost het, wat levert het op?</small></li>"+
-      "<li><b>Wat maakt je oordeel minder zeker?</b><br><small class='muted'>Een tegenargument of een beperking van het bewijs.</small></li>"}),
-      h("div",{class:"note"},h("h3",null,"Zo is een argument sterk"),h("ul",{html:"<li>Het volgt de redenering: keuze → wat ze oplevert → gevolg voor stakeholders.</li><li>Het bevat een concreet feit en een bron (organisatie en datum).</li><li>Je houdt rekening met het verschillende verdienmodel (marge op verkoop of makelaarsmodel).</li><li>Je advies is uitvoerbaar en weegt een echte kost af tegen een opbrengst.</li>"})));
-  }});
-L2.push({id:"l2-12",fase:"Synthesefase",titel:"Klaar",min:0,lvl:0,waar:"—",
-  doe:["Geef je logboek af aan de leerkracht.","Sluit het leerpad en je iPad.","De leerkracht verzamelt de A3’s."],
-  body:function(b){b.append(note("Bedankt voor je werk. Je krijgt je punten voor het groepsprofiel, je matrix, je eindopdracht en je inzet."))}});
 
-var LESSEN={1:{titel:"Lesuur 1 · Vijf bedrijven onder de loep",steps:L1},2:{titel:"Lesuur 2 · Vergelijken en oordelen",steps:L2}};
-
-/* ---------- weergave ---------- */
-var mainEl=$("#main"),tabsEl=$("#tabs"),progEl=$("#prog"),capEl=$("#cap"),panel=$("#panel"),menuBtn=$("#menuBtn");
-var activeTimer=null,fresh=null,lastKey=null;
-var wrapEl=$(".wrap"),gbEl=$("#gb");
-var FKEY={"Motivatiefase":"m","Analysefase":"a","Synthesefase":"s"};
-var STAMPS=["s1","s2","s3"];
-function nStamps(){return STAMPS.filter(function(k){return S.unlocked[k]}).length}
-function isOpen(les,i){if(S.teacher)return true;
-  for(var j=0;j<i;j++){var st=LESSEN[les].steps[j];if(st.lock&&!S.unlocked[st.lock])return false}return true}
-function go(les,i){
-  if(les===2&&!S.teacher&&!(S.max[1]>=LESSEN[1].steps.length-1)){les=1;i=S.idx[1]||0}
-  var steps=LESSEN[les].steps;i=Math.max(0,Math.min(steps.length-1,i));
-  if(!S.teacher){for(var j=0;j<i;j++){if(steps[j].lock&&!S.unlocked[steps[j].lock]){i=j;break}}}
-  S.les=les;S.idx[les]=i;S.max[les]=Math.max(S.max[les]||0,i);save();
-  try{history.replaceState(null,"","#les"+les+"-stap"+(i+1))}catch(e){}
-  draw();window.scrollTo(0,0);
-}
-function draw(){
-  var les=S.les,steps=LESSEN[les].steps,i=S.idx[les],st=steps[i];
-  if(activeTimer&&activeTimer._stop)activeTimer._stop();activeTimer=null;
-  /* kleuren: fase en groep */
-  wrapEl.setAttribute("data-f",FKEY[st.fase]||"a");
-  if(S.group&&BEDRIJVEN[S.group]){wrapEl.setAttribute("data-g",String(S.group));gbEl.hidden=false;gbEl.innerHTML="";
-    gbEl.append(h("span",{class:"gdot","data-n":S.group,"aria-hidden":"true"}),"Groep "+S.group+" · "+BEDRIJVEN[S.group].n)}
-  else{wrapEl.removeAttribute("data-g");gbEl.hidden=true;gbEl.innerHTML=""}
-  /* tabs */
-  tabsEl.innerHTML="";
-  [1,2].forEach(function(n){
-    var b=h("button",{class:"tab",type:"button","aria-pressed":String(les===n)},"Lesuur "+n);
-    b.disabled=n===2&&!(S.teacher||(S.max[1]>=LESSEN[1].steps.length-1));
-    b.addEventListener("click",function(){go(n,S.idx[n]||0)});tabsEl.append(b)});
-  /* voortgang */
-  progEl.innerHTML="";
-  steps.forEach(function(s,j){
-    var cls="seg"+(j<i?" done":"")+(j===i?" cur":"")+(j>i&&!isOpen(les,j)?" blk":"");
-    var sg=h("button",{class:cls,type:"button","data-f":FKEY[s.fase]||"a","aria-label":"Stap "+(j+1)+": "+s.titel});
-    sg.disabled=!(j<=Math.max(S.max[les]||0,i)&&isOpen(les,j));
-    sg.addEventListener("click",function(){go(les,j)});progEl.append(sg)});
-  var tot=steps.reduce(function(a,s){return a+(s.min||0)},0);
-  capEl.innerHTML="";
-  var nst=nStamps();
-  var stampBar=h("span",{class:"stamps",role:"img","aria-label":"Stempels: "+nst+" van 3"});
-  STAMPS.forEach(function(k,n){stampBar.append(h("span",{class:"st"+(S.unlocked[k]?" on":"")+(fresh===k?" pop":""),"data-n":n+1}))});
-  stampBar.append(h("span",{class:"lbl"},"Stempels "+nst+" van 3"));
-  capEl.append(h("span",null,h("b",null,"Stap "+(i+1)+" van "+steps.length),"  ·  "+LESSEN[les].titel),stampBar);
-  /* kaart */
-  mainEl.innerHTML="";
-  var card=h("section",{class:"card","aria-labelledby":"stitle"});
-  var fTot=0,fNr=0;steps.forEach(function(s2,j){if(s2.fase===st.fase){fTot++;if(j<=i)fNr++}});
-  var tagrow=h("div",{class:"tagrow"},h("span",{class:"tag"},"STAP "+(i+1)),h("span",{class:"fase"},st.fase+" · "+fNr+" van "+fTot));
-  card.append(tagrow);
-  var key=les+"-"+i;if(key!==lastKey){card.classList.add("enter");lastKey=key}
-  card.append(h("h2",{id:"stitle"},st.titel));
-  var meta=h("div",{class:"meta"});
-  if(st.min&&!st.timer)meta.append(h("span",null,"Richttijd ",h("b",null,st.min+" min")));
-  meta.append(h("span",{class:"lv l"+st.lvl},bars(st.lvl),LVL[st.lvl]));
-  if(st.waar)meta.append(h("span",null,"Noteer: ",h("b",null,st.waar)));
-  card.append(meta);
-  if(st.timer){activeTimer=timer(st.timer);card.append(activeTimer)}
-  if(st.plenair)card.append(h("div",{class:"lk"},"Leerkracht aan het woord. Ogen naar voren."));
-  var ol=h("ol",{class:"doe"});st.doe.forEach(function(d){ol.append(h("li",{html:d}))});card.append(ol);
-  var body=h("div");card.append(body);
-  if(st.body){var redraw=function(){var y=window.scrollY;draw();window.scrollTo(0,y)};st.body(body,redraw)}
-  var hulpTxt=typeof st.hulp==="function"?st.hulp():st.hulp;
-  if(hulpTxt)card.append(h("details",null,h("summary",null,"Hulp nodig?"),h("div",{html:hulpTxt})));
-  if(st.lock){
-    var ok=!!S.unlocked[st.lock]||S.teacher;
-    var lk=h("div",{class:"lock"+(ok?" open":"")});
-    if(ok){
-      var isNew=fresh===st.lock;
-      lk.append(h("div",{class:"lockrow"},
-        h("div",{class:"bigstamp"+(isNew?" pop":""),"aria-hidden":"true"},h("small",null,"STEMPEL"),h("b",null,st.lock.slice(1))),
-        h("div",null,h("p",null,h("b",null,"Doorgelaten. Je mag verder.")),isNew?h("p",{class:"fb ok"},"Stempel "+nst+" van 3 behaald."):null,h("p",{html:st.controle}))));
-    }else lk.append(h("p",null,h("b",null,"Stop. Wacht op de leerkracht.")),h("p",{html:st.controle}));
-    if(!ok){
-      var inp=h("input",{type:"text",inputmode:"numeric",id:"code",maxlength:"8",autocomplete:"off","aria-label":"Code van de leerkracht"});
-      var msg=h("span",{class:"fb"});
-      var bt=h("button",{class:"btn",type:"button"},"Controleer code");
-      function chk(){var v=hsh(inp.value);if(v===CODE[st.lock]||v===MASTER){S.unlocked[st.lock]=true;fresh=st.lock;save();draw()}else{msg.className="fb no";msg.textContent="Die code klopt niet."}}
-      bt.addEventListener("click",chk);inp.addEventListener("keydown",function(e){if(e.key==="Enter")chk()});
-      lk.append(h("div",{class:"code"},inp,bt,msg));
-      lk.append(h("div",{class:"note",html:st.wacht,style:"margin-top:14px"}));
-    }
-    card.append(lk);
+function stappen2(g){
+  var tr = "";
+  for(var r=1;r<=4;r++){
+    tr += '<tr><td>'+r+'</td><td>expert '+rollen(g)[r-1]+'</td><td>'+gl(naarGroep(g,r))+'</td><td>'+BED[ronBedrijf(g,r)].n+'</td></tr>';
   }
-  mainEl.append(card);
-  /* navigatie */
-  var nav=h("div",{class:"nav"});
-  var prev=h("button",{class:"btn ghost",type:"button"},"Vorige");prev.disabled=i===0;
-  prev.addEventListener("click",function(){go(les,i-1)});
-  var nextLabel=i===steps.length-1?(les===1?"Naar lesuur 2":"Klaar"):"Volgende";
-  var next=h("button",{class:"btn next",type:"button"},nextLabel);
-  var blocked=st.lock&&!S.unlocked[st.lock]&&!S.teacher;
-  next.disabled=!!blocked||(i===steps.length-1&&les===2);
-  next.addEventListener("click",function(){if(i===steps.length-1){if(les===1){S.max[1]=steps.length-1;go(2,0)}}else go(les,i+1)});
-  nav.append(prev,next);mainEl.append(nav);
-  fresh=null;
-}
-/* menu */
-function drawPanel(){
-  panel.innerHTML="";
-  panel.append(h("h3",null,"Menu"));
-  var d1=h("details",null,h("summary",null,"Afspraken, stemniveau en punten"),h("div",null,afsprakenNode()));
-  var d2=h("details",null,h("summary",null,"Mijn groep en rol"),h("div",null,pickGroup(function(){drawPanel();draw()}),pickRole(function(){drawPanel();draw()})));
-  var inp=h("input",{type:"text",inputmode:"numeric",id:"tcode","aria-label":"Code leerkracht",style:"min-height:48px;width:8em;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);padding:0 12px;text-align:center"});
-  var tmsg=h("span",{class:"fb"});var tb=h("button",{class:"btn small",type:"button"},"Ontgrendel alles");
-  tb.addEventListener("click",function(){if(hsh(inp.value)===MASTER){S.teacher=true;save();tmsg.className="fb ok";tmsg.textContent="Leerkrachtmodus aan.";draw()}else{tmsg.className="fb no";tmsg.textContent="Code klopt niet."}});
-  var d3=h("details",null,h("summary",null,"Leerkracht"),h("div",null,h("div",{class:"row"},inp,tb,tmsg),
-    S.teacher?h("p",null,h("button",{class:"btn ghost small",type:"button",onclick:function(){S.teacher=false;save();drawPanel();draw()}},"Leerkrachtmodus uit")):null));
-  var rs=h("button",{class:"btn ghost small",type:"button"},"Opnieuw beginnen");var armed=false;
-  rs.addEventListener("click",function(){if(!armed){armed=true;rs.textContent="Zeker? Alles wordt gewist. Klik nog eens.";return}
-    S={les:1,idx:{1:0,2:0},max:{1:0,2:0},group:null,role:null,unlocked:{},open:{},val:{},tick:{},teacher:false};save();panel.hidden=true;menuBtn.setAttribute("aria-expanded","false");go(1,0)});
-  panel.append(d1,d2,d3,h("div",{style:"margin-top:12px"},rs));
-}
-menuBtn.addEventListener("click",function(){
-  var open=panel.hidden;panel.hidden=!open;menuBtn.setAttribute("aria-expanded",String(open));if(open)drawPanel()});
-
-
-/* ---------- papieren noodversie ---------- */
-var KOPPEN="<ol>"+
- "<li>Europese Commissie wil Temu en Shein ‘administratieve kosten’ laten betalen voor pakjes die ze naar Europa sturen (VRT NWS, 5 februari 2025)</li>"+
- "<li>Winst van moederbedrijf Vinted stijgt met 330 procent (FashionUnited, 29 april 2025)</li>"+
- "<li>10 jaar na de ramp in textielfabriek Rana Plaza: ‘Het is nog altijd geen pretje om kledingwerker in Bangladesh te zijn’ (VRT NWS, 23 april 2023)</li>"+
- "<li>Shein beloofde overwerk aan te pakken. Nieuw rapport: werkweken van 75 uur blijven gewoon (CNN, 13 mei 2024)</li>"+
- "<li>EU-burgers kopen meer kleding dan ooit, belasting voor klimaat (ANP, 25 maart 2025)</li>"+
- "<li>Transportuitstoot van Shein schiet omhoog in 2024 (Reuters, 13 juni 2025)</li>"+
- "<li>Tweedehandsplatform Zara Pre-Owned van start in de Benelux (RetailDetail, 6 december 2023)</li>"+
- "<li>Nieuwe EU-regels rond textiel: producenten voortaan verantwoordelijk voor de inzameling en recyclage ervan (VRT NWS, 9 september 2025)</li></ol>";
-var PAPER={
- "l1-3":"<p><b>De acht koppen</b> (als je knipsel kwijt is):</p>"+KOPPEN,
- "l1-5":"<p>De leerkracht schrijft samen met jullie de onderzoeksvraag op. Schrijf ze over in je logboek (p. 1).</p>",
- "l1-6":"<p>Lees de bronkaart van jouw vak in je A3-dossier. Heeft jouw bronkaart een artikel? Open het via de QR-code en beantwoord de twee leesvragen op je dossier. De antwoorden krijg je van de leerkracht.</p>",
- "l1-8":"<p>Zie pagina 2 van je A3-dossier. De leerkracht controleert je antwoorden bij stempel 1.</p>",
- "l1-11":"<table><tr><th>① Keuze</th><td>Een bewuste keuze in prijs, snelheid, verkoopkanaal of productie.</td></tr><tr><th>② Levert op</th><td>De keuze verhoogt de opbrengsten of verlaagt de bedrijfskosten. Winst = opbrengsten − bedrijfskosten.</td></tr><tr><th>③ Gevolgen</th><td>Kosten die niet het bedrijf draagt maar anderen: werknemers, het milieu, de samenleving. Met bron en datum.</td></tr><tr><th>④ In de prijs?</th><td>Zitten die kosten niet of maar deels in de verkoopprijs, dan betalen anderen een deel van de prijs. Zeg wie.</td></tr></table>",
- "l1-12":"<p><b>Soort informatie bij je bewijs:</b> feit uit onderzoek · claim van het bedrijf · historische gebeurtenis · eigen interpretatie. ‘Onvoldoende informatie’ is ook een sterk antwoord als het bewijs echt ontbreekt.</p>",
- "l2-r1":"<p>De fiche met de kernpunten van dit bedrijf krijg je van de leerkracht na de ronde. Vergelijk met je rij en verbeter met een andere kleur.</p>",
- "l2-1":"<p><b>Een gezin met een klein kledingbudget koopt bij Temu. Is dat een slechte keuze?</b></p><p>Waarom kiest een gezin met een beperkt budget voor de laagste prijs? Kent de consument alle gevolgen van zijn aankoop?</p>",
- "l2-9":"<p><b>T-shirt € 29: ongeveer 0,6 % gaat naar het loon van de arbeiders. Wat kost een dubbel loon de koper?</b> (Oxfam België, 16 november 2021)</p>",
- "l2-11":"<ol><li><b>Welk bedrijf weegt winst en gevolgen het best af?</b> Eén economisch argument en één bron.</li><li><b>Welk bedrijf doet dat het minst goed?</b> Eén economisch argument en één bron.</li><li><b>Welk concreet advies geef je aan dat bedrijf?</b> Weeg af: wat kost het, wat levert het op?</li><li><b>Wat maakt je oordeel minder zeker?</b> Een tegenargument of een beperking van het bewijs.</li></ol><p>Een argument is sterk als het de redenering volgt (keuze → wat ze oplevert → gevolg voor stakeholders), een concreet feit met bron (organisatie en datum) bevat en rekening houdt met het verschillende verdienmodel.</p>"
-};
-function paperText(t){
-  return t.replace(/Klik pas daarna op ‘Toon wat de bronnen zeggen’\./,"De leerkracht toont daarna wat de bronnen zeggen.")
-   .replace(/ Klik daarna op ‘Toon de onderzoeksvraag’ en vergelijk\./,"")
-   .replace(/ Klik daarna op ‘Toon de onderzoeksvraag’\./," De leerkracht toont daarna de onderzoeksvraag.")
-   .replace(/Na het klasgesprek: toon hieronder de omschrijving en noteer ze in je logboek \(p\. 1\)\./,"Na het klasgesprek noteer je de omschrijving van de leerkracht in je logboek (p. 1).")
-   .replace(/Vul eerst in op papier\. Controleer daarna hier\./,"Vul in op papier. De leerkracht controleert bij stempel 1.")
-   .replace(/Klaar met de open vraag\? Toon het mogelijk antwoord en vergelijk\./,"Klaar met de open vraag? Vergelijk met de leerkracht.")
-   .replace(/Controleer daarna hieronder en verbeter met een andere kleur\./,"Controleer daarna met de leerkracht en verbeter met een andere kleur.")
-   .replace(/Controleer je antwoorden hieronder\./,"Controleer je antwoorden met de leerkracht.")
-   .replace(/de knop ‘Hulp nodig\?’/,"de hulptekst bij de stap")
-   .replace(/Leg de iPad plat in het midden van je groep\. Kies hieronder jullie groep en wie met deze iPad werkt\./,"Vul de kop van je logboek in: je groep, bedrijf en rol staan op dia 1.")
-   .replace(/Klik pas op ‘Volgende’ als je stap af is\./,"Ga pas naar de volgende stap als je stap af is.")
-   .replace(/Controleer met de tabel hieronder of je antwoord sterk is\./,"Controleer met de tabel hierboven of je antwoord sterk is.")
-   .replace(/Klik op ‘Naar lesuur 2’\./,"Ga naar lesuur 2.");
-}
-function printView(){
-  document.body.classList.add("print");
-  document.documentElement.setAttribute("data-theme","light");
-  mainEl.innerHTML="";
-  var pv=h("div",{class:"pv"});
-  pv.append(h("h1",null,"Fast fashion onder de loep · leerpad op papier"),
-    h("p",null,"Noodversie voor als de iPad of de link niet werkt. Alle stappen staan in dezelfde volgorde. Stempelpunten krijgen een paraaf van de leerkracht, zonder code."),
-    h("div",{html:paperText(afsprakenNode().innerHTML)}));
-  var rt=h("table",null,h("tr",null,h("th",null,"Groep (bedrijf)"),h("th",null,"Ronde 1"),h("th",null,"Ronde 2"),h("th",null,"Ronde 3"),h("th",null,"Ronde 4")));
-  for(var g=1;g<=5;g++){var tr=h("tr",null,h("td",null,"Groep "+g+" · "+BEDRIJVEN[g].n));
-    for(var r=1;r<=4;r++){var c=compVoorRonde(g,r);tr.append(h("td",null,BEDRIJVEN[c].n))}rt.append(tr)}
-  pv.append(h("h2",{class:"les"},"Lesuur 2 · wie leest welk A3?"),rt,h("p",null,"Op het signaal brengt de expert werknemers het A3 naar de volgende groep (groep 5 naar groep 1) en komt rustig terug."));
-  [1,2].forEach(function(les){
-    pv.append(h("h2",{class:"les"},LESSEN[les].titel));
-    LESSEN[les].steps.forEach(function(st,i){
-      var box=h("section",{class:"stap"});
-      box.append(h("h3",null,"Stap "+(i+1)+" · "+st.titel+" ",h("span",{class:"muted",style:"font-weight:500;font-size:12px"},"("+st.fase+")")));
-      var ch=h("div",{class:"chips"});
-      if(st.min)ch.append(h("span",{class:"chip"},"Richttijd "+st.min+" min"));
-      ch.append(lvlChip(st.lvl));if(st.waar)ch.append(h("span",{class:"chip"},"Noteer: "+st.waar));
-      box.append(ch);
-      var doe=st.lock?st.doe.slice(0,2):st.doe;
-      if(st.id.indexOf("l2-r")===0)doe=["Het A3 bij jullie is dat van een andere groep (zie de tabel). Controleer of het juiste bedrijf bovenaan staat.","<b>Lees</b> het A3, vooral deel 1 en 2. Zoek ① de keuze, ② wat ze oplevert, ③ één gevolg met bron en ④ of het in de prijs zit.","<b>Vul</b> de rij van dit bedrijf in je matrix in. Kernwoorden volstaan.","<b>Controleer</b> met de fiche van de leerkracht en verbeter met een andere kleur."];
-      var ol=h("ol",{class:"doe"});doe.forEach(function(d){ol.append(h("li",{html:paperText(d)}))});box.append(ol);
-      var pk=PAPER[st.id]||(st.id.indexOf("l2-r")===0?PAPER["l2-r1"]:null);
-      if(pk)box.append(h("div",{class:"note",html:pk}));
-      if(st.lock)box.append(h("div",{class:"note",html:"<b>Stempelpunt.</b> "+st.controle+"<br>"+st.wacht}));
-      if(typeof st.hulp==="string")box.append(h("div",{class:"note",html:"<b>Hulp:</b> "+st.hulp}));
-      pv.append(box);
-    });
+  var inv = "";
+  ["1","2","3","4","5"].forEach(function(k){
+    inv += '<div class="'+(k===g?'own':'')+'" style="--g:'+KLEUR[k]+'"><span>'+k+'</span><div>'+BED[k].n+(k===g?'<small>jullie bedrijf: niet kiezen</small>':'')+'</div></div>';
   });
-  mainEl.append(pv);
+  return [
+  {deel:"Start", titel:"De stelling", min:4, body:
+    '<div class="stelling">'+STELLING+'</div>'+
+    '<div class="do"><p><b>Sta op</b> als je akkoord bent, <b>blijf zitten</b> als je niet akkoord bent. Leg uit waarom.</p></div>'+
+    reveal("2-1-vraag","Toon onze vraag (nadat de klas ze gezegd heeft)", vraagBox(VRAAG2)+'<div class="box"><span class="lab">Doe nu</span>Schrijf de vraag boven je vergelijkingsmatrix.</div>')+chips(["Logboek p. 2"])},
+  {deel:"Beurs", titel:"De beurs: zo werkt het", min:1, body:
+    '<div class="do"><p>Je hoort van de <b>vier andere bedrijven</b> hoe ze geld verdienen en wie de prijs betaalt.</p>'+
+    '<p>In elke ronde reist <b>één ambassadeur</b> van jullie groep met jullie A3 naar een andere groep. De anderen blijven zitten en luisteren naar de ambassadeur die bij hen komt.</p></div>'+
+    '<table class="tbl"><tr><th>Ronde</th><th>Ambassadeur</th><th>Gaat naar</th><th>Bij jullie komt</th></tr>'+tr+'</table>'+
+    '<div class="box"><span class="lab">Elke ronde duurt 5 minuten</span>Op het signaal van de leerkracht verhuist de ambassadeur.</div>'+chips(["A3-bedrijfsprofiel","Kleurkaartjes","Logboek p. 2–3"])},
+  rondeStap(g,1), rondeStap(g,2), rondeStap(g,3), rondeStap(g,4),
+  {deel:"Beslis", titel:"Wie betaalt de prijs?", min:3, body:
+    '<div class="do"><p>Bespreek in je groep: wat hebben we gehoord? Welke kosten dragen anderen dan het bedrijf zelf?</p><p>Twee groepen antwoorden op de vraag van lesuur 1.</p></div>'+
+    reveal("2-7-conclusie","Toon de conclusie (nadat de klas ze gezegd heeft)",'<div class="box say"><span class="lab">Conclusie van de klas</span>'+CONCLUSIE+'</div>')+
+    '<div class="box"><span class="lab">Doe nu</span>Schrijf de conclusie in je eigen woorden op logboek p. 3.</div>'+chips(["Logboek p. 3"])},
+  {deel:"Beslis", titel:"De Oxfam-som", min:3, body:
+    '<div class="do"><p>Een T-shirt van <b>€ 29</b>: ongeveer <b>0,6 %</b> gaat naar het loon van de arbeiders.</p>'+
+    '<p>Hoeveel euro is dat? Wat kost een <b>dubbel loon</b> de koper? Reken samen.</p></div>'+
+    '<div class="box"><span class="lab">Denk daarna na</span>Wat merk je op? Waarom kiezen merken daar dan niet voor?</div>'+
+    '<p style="margin-top:10px;font-size:16px;color:var(--grey)">Bron: Oxfam België, 16 november 2021</p>'+chips(["Logboek p. 3"])},
+  {deel:"Beslis", titel:"Investeer", min:3, body:
+    '<div class="do"><p>In welk bedrijf investeer jij? <b>Niet in jullie eigen bedrijf.</b></p>'+
+    '<p>Schrijf het nummer op je wisbordje en toon het op het teken van de leerkracht.</p></div>'+
+    '<div class="inv">'+inv+'</div>'+
+    '<div class="box"><span class="lab">Denk aan</span>Waarom investeer jij hierin? Welke kosten neemt dit bedrijf zelf, en welke dragen anderen?</div>'+chips(["Wisbordje"])},
+  {deel:"Beslis", titel:"Eindopdracht · eerst met je buur", min:3, body:
+    '<div class="do"><p>Vertel je buur <b>in welk bedrijf je investeert en waarom</b>. Je buur zoekt het zwakste punt in jouw redenering. Wissel na anderhalve minuut.</p></div>'+
+    '<div class="box say"><span class="lab">Zo begin je</span>‘Ik investeer in … omdat dit bedrijf kiest voor … Daardoor … Het gevolg voor anderen is …’</div>'},
+  {deel:"Beslis", titel:"Eindopdracht · alleen en in stilte", min:9, body:
+    '<div class="do"><p>Maak <b>alleen en in stilte</b> de vier vragen op logboek p. 4. Gebruik je vergelijkingsmatrix.</p>'+
+    '<p>Je krijgt punten voor je economische argumenten en je bronnen, <b>niet voor je keuze</b>.</p></div>'+
+    '<div class="box"><span class="lab">Klaar?</span>Controleer of je bij elk argument een bron hebt (organisatie en datum) en geef je logboek af aan de leerkracht.</div>'+chips(["Logboek p. 4"])}
+  ];
 }
 
-/* start: hash > opslag */
-(function init(){
-  if(location.hash==="#print"){printView();return}
-  var m=/^#les([12])-stap(\d+)$/.exec(location.hash||"");
-  if(m){var l=+m[1],i=+m[2]-1;if(l===2&&!(S.max[1]>=LESSEN[1].steps.length-1)&&!S.teacher)l=1;S.les=l;S.idx[l]=Math.max(0,Math.min(LESSEN[l].steps.length-1,i))}
-  if(!LESSEN[S.les])S.les=1;go(S.les,S.idx[S.les]||0);
-})();
-window.addEventListener("hashchange",function(){var m=/^#les([12])-stap(\d+)$/.exec(location.hash||"");if(m)go(+m[1],+m[2]-1)});
-})();
+function stappen(g,les){ return les===1 ? stappen1(g) : stappen2(g); }
+
+/* timer */
+function tkey(les,i){ return les+"-"+i; }
+function tget(k,min){ var t = S.t[k]; if(!t){ t = S.t[k] = {left:min*60, end:null, done:false}; } return t; }
+function tleft(t){ return t.end ? Math.max(0, Math.round((t.end - Date.now())/1000)) : t.left; }
+function fmt(s){ var m = Math.floor(s/60), r = s%60; return m+":"+(r<10?"0":"")+r; }
+function tstart(k,min){ var t = tget(k,min); if(t.end) return; if(t.left<=0){ t.left = min*60; t.done = false; } t.end = Date.now()+t.left*1000; save(); }
+function tpause(k,min){ var t = tget(k,min); if(!t.end) return; t.left = tleft(t); t.end = null; save(); }
+function treset(k,min){ S.t[k] = {left:min*60, end:null, done:false}; save(); }
+function tick(){
+  var el = document.getElementById("timer"); if(!el || !S.g) return;
+  var st = stappen(S.g,S.les)[S.i[S.les]]; if(!st) return;
+  var k = tkey(S.les,S.i[S.les]), t = tget(k,st.min), s = tleft(t);
+  if(t.end && s<=0){ t.left = 0; t.end = null; t.done = true; save(); }
+  s = tleft(t);
+  var cls = "timer";
+  if(t.done && s<=0) cls += " end"; else if(t.end && s<=30) cls += " low";
+  el.className = cls;
+  el.querySelector(".t").textContent = fmt(s);
+  var go = el.querySelector("[data-t=go]");
+  go.textContent = t.end ? "Pauze" : (t.done ? "Opnieuw" : (t.left < st.min*60 ? "Verder" : "Start"));
+  el.querySelector(".lbl").textContent = (t.done && s<=0) ? "Tijd om! Rond af en ga naar de volgende stap." : "Tijd voor deze stap: "+st.min+" min";
+}
+setInterval(tick,250);
+document.addEventListener("visibilitychange",tick);
+
+/* weergave */
+var app = document.getElementById("app");
+function render(){
+  if(!S.g){ return home(); }
+  var g = S.g, b = BED[g], list = stappen(g,S.les), i = S.i[S.les];
+  if(i<0) i = S.i[S.les] = 0;
+  document.documentElement.style.setProperty("--c",KLEUR[g]);
+  var h = '<div class="top"><div class="wrap"><div class="who"><div class="k">Groep '+g+'</div><div class="n">'+b.n+'</div><div class="mn">'+b.mn+'</div></div>'+
+          '<button class="wissel" data-act="wissel">Andere groep</button></div></div><div class="wrap">'+
+          '<div class="tabs"><button data-les="1" class="'+(S.les===1?'on':'')+'">Lesuur 1<small>Ontdek en onderzoek</small></button>'+
+          '<button data-les="2" class="'+(S.les===2?'on':'')+'">Lesuur 2<small>De beurs en jouw beslissing</small></button></div>';
+  if(i>=list.length){
+    h += '<div class="card klaar"><h2>'+(S.les===1?'Lesuur 1 is klaar':'Goed gewerkt, investeerders!')+'</h2>'+
+         '<p>'+(S.les===1?'Bewaar je logboek. Het A3 van jullie groep reist in lesuur 2 mee met de ambassadeur.':'Geef je logboek af aan de leerkracht.')+'</p>'+
+         (S.les===1?'<p><button data-les="2">Naar lesuur 2 →</button></p>':'')+
+         '<p><button class="sec" data-act="terug">← Terug naar de laatste stap</button></p></div>';
+  } else {
+    var groups = [], cur = null;
+    list.forEach(function(s,idx){ if(!cur || cur.deel!==s.deel){ cur = {deel:s.deel, items:[]}; groups.push(cur); } cur.items.push(idx); });
+    h += '<div class="strip">'+groups.map(function(gr){
+      return '<div class="deel"><div class="lab">'+gr.deel+'</div><div class="row">'+gr.items.map(function(idx){
+        return '<button class="dot'+(idx<i?' done':'')+(idx===i?' now':'')+'" data-go="'+idx+'" aria-label="Stap '+(idx+1)+'">'+(idx+1)+'</button>';
+      }).join("")+'</div></div>';
+    }).join("")+'</div>';
+    var st = list[i], k = tkey(S.les,i);
+    h += '<div class="card"><div class="head"><div class="bignr">'+(i+1)+'</div><div><h2>'+st.titel+'</h2><div class="meta">Stap '+(i+1)+' van '+list.length+' · '+st.min+' min</div></div></div>'+
+         '<div class="timer" id="timer"><div class="t">'+fmt(tleft(tget(k,st.min)))+'</div><div class="lbl"></div>'+
+         '<button data-t="go">Start</button><button class="sec" data-t="reset">Opnieuw</button></div>'+
+         '<div class="stepbody">'+st.body+'</div></div>'+
+         '<div class="nav">'+(i>0?'<button class="prev" data-act="prev">← Vorige</button>':'')+
+         '<button class="next" data-act="next">'+(i===list.length-1?'Klaar ✓':'Volgende stap →')+'</button></div>'+
+         (i<list.length-1?'<div class="next-up">Straks: stap '+(i+2)+' · '+list[i+1].titel+'</div>':'');
+  }
+  h += '<div class="regel"><b>REGEL</b><span>'+REGEL+'</span></div></div>';
+  app.innerHTML = h;
+  tick();
+}
+function home(){
+  document.documentElement.style.setProperty("--c","#1B1F24");
+  var h = '<div class="wrap home"><h1>Fast fashion onder de loep</h1><p class="sub">Kies jullie groep. De naam van jullie bedrijf staat op de kaart op jullie tafel.</p><div class="pick">';
+  ["1","2","3","4","5"].forEach(function(k){
+    h += '<button style="--g:'+KLEUR[k]+'" data-g="'+k+'"><span class="nr">'+k+'</span><span><span class="t1">Groep '+k+'</span><br><span class="t2">'+BED[k].n+'</span></span></button>';
+  });
+  h += '</div></div>';
+  app.innerHTML = h;
+}
+
+document.addEventListener("click",function(e){
+  var el = e.target.closest("button"); if(!el) return;
+  var d = el.dataset;
+  if(d.g){ if(S.owner!==d.g){ S.les = 1; S.i = {"1":0,"2":0}; S.t = {}; S.open = {}; } S.g = d.g; S.owner = d.g; save(); render(); window.scrollTo(0,0); return; }
+  if(d.act==="wissel"){ S.g = null; save(); render(); return; }
+  if(d.les){ S.les = +d.les; save(); render(); window.scrollTo(0,0); return; }
+  if(d.go!==undefined){ S.i[S.les] = +d.go; save(); render(); return; }
+  if(d.act==="next"){ S.i[S.les] += 1; save(); render(); window.scrollTo(0,0); return; }
+  if(d.act==="prev"){ S.i[S.les] = Math.max(0,S.i[S.les]-1); save(); render(); window.scrollTo(0,0); return; }
+  if(d.act==="terug"){ S.i[S.les] = stappen(S.g,S.les).length-1; save(); render(); return; }
+  if(d.rv){ S.open[d.rv] = !S.open[d.rv]; save(); render(); return; }
+  if(d.t){
+    var st = stappen(S.g,S.les)[S.i[S.les]], k = tkey(S.les,S.i[S.les]), t = tget(k,st.min);
+    if(d.t==="go"){ if(t.end) tpause(k,st.min); else tstart(k,st.min); }
+    if(d.t==="reset"){ treset(k,st.min); }
+    tick(); return;
+  }
+});
+render();
 </script>
-</body></html>
+</body>
+</html>
