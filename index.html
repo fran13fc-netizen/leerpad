@@ -157,7 +157,7 @@ var DRIE = "<b>SNEL:</b> steeds nieuwe collecties, sommige merken tot 52 ‘micr
 var REGEL = "Praat zacht met je groep. Bij het signaal van de leerkracht ben je binnen vijf seconden stil.";
 
 var KEY = "ff-kaart-2";
-var S = {g:null, owner:null, les:1, i:{"1":0,"2":0}, t:{}, open:{}};
+var S = {g:null, owner:null, les:1, i:{"1":0,"2":0}, t:{}, open:{}, o:{}};
 try{ var raw = localStorage.getItem(KEY); if(raw){ var o = JSON.parse(raw); if(o && typeof o==="object"){ S = Object.assign(S,o); } } }catch(e){}
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 
@@ -169,7 +169,16 @@ function gl(g){ return "groep "+g+" · "+BED[g].n; }
 
 /* bouwstenen */
 function chips(a,par){ var h = (a||[]).map(function(x){return '<span class="chip">'+x+'</span>';}).join(""); if(par) h += '<span class="chip paraaf">'+par+'</span>'; return h ? '<div class="chips">'+h+'</div>' : ''; }
-function reveal(id,label,html){ var o = !!S.open[id]; return '<div class="reveal'+(o?' open':'')+'"><button data-rv="'+id+'">'+(o?'▾ ':'▸ ')+label+'</button><div class="body">'+html+'</div></div>'; }
+var RV = {};
+function revHtml(id){ var r = RV[id], o = !!S.open[id]; return '<div class="reveal'+(o?' open':'')+'"><button data-rv="'+id+'">'+(o?'▾ ':'▸ ')+r.label+'</button><div class="body">'+r.html+'</div></div>'; }
+/* antwoorden staan pas op het scherm als de tijd van de stap voor een deel (frac) of helemaal (1) om is; ervoor is er niets te zien */
+function reveal(id,label,html,frac){ RV[id] = {label:label, html:html}; return '<div class="reveal-slot" data-id="'+id+'" data-frac="'+(frac==null?1:frac)+'"></div>'; }
+function unlockReveals(st,k){
+  var slots = document.querySelectorAll(".reveal-slot"); if(!slots.length) return;
+  var t0 = S.o && S.o[k]; if(!t0) return;
+  var el = (Date.now()-t0)/1000;
+  for(var j=0;j<slots.length;j++){ var sl = slots[j]; if(RV[sl.dataset.id] && el >= (+sl.dataset.frac)*st.min*60){ sl.outerHTML = revHtml(sl.dataset.id); } }
+}
 function vraagBox(t,lab){ return '<div class="vraag"><span class="lab">'+(lab||"Onze vraag")+'</span>'+t+'</div>'; }
 
 /* lesuur 1 */
@@ -182,7 +191,7 @@ function stappen1(g){
     '<div class="box"><span class="lab">Doe nu</span>Vul de kop van je logboek in: naam, groep, bedrijf en jouw rol.</div>'+chips(["Logboek p. 1"])},
   {deel:"Ontdek", titel:"Wat betekent ‘fast’?", min:2, body:
     '<div class="do"><p>Denk eerst <b>alleen</b> na: wat betekent ‘fast’ in fast fashion?</p><p>Vertel daarna je idee aan je groep.</p></div>'+
-    reveal("1-2-drie","Lees pas daarna: fast fashion in drie woorden",'<div class="box">'+DRIE+'</div>')},
+    reveal("1-2-drie","Fast fashion in drie woorden",'<div class="box">'+DRIE+'</div>')},
   {deel:"Ontdek", titel:"Krantenkoppen sorteren", min:4, body:
     '<div class="do"><p>Leg de acht koppen in het midden en lees er een paar hardop voor.</p><p><b>Sorteer</b> ze in stapels die jullie zelf kiezen en geef elke stapel een naam.</p></div>'+
     '<div class="box"><span class="lab">Denk hierover na</span>Welke koppen horen samen, en waarom? Waarom staan die bedrijven zo vaak in het nieuws?</div>'+chips(["Krantenknipsels"])},
@@ -191,7 +200,7 @@ function stappen1(g){
   {deel:"Ontdek", titel:"Onze onderzoeksvraag", min:2, body:
     '<div class="do"><p>Luister naar de leerkracht. De koppen gaan over vier invalshoeken. Jullie formuleren samen de onderzoeksvraag.</p></div>'+
     '<div class="tags"><span class="tag">strategie</span><span class="tag">werknemers</span><span class="tag">milieu</span><span class="tag">kledingberg</span></div>'+
-    reveal("1-5-vraag","Toon onze vraag (nadat de klas ze gezegd heeft)", vraagBox(VRAAG1)+'<div class="box"><span class="lab">Doe nu</span>Schrijf de vraag over in je logboek.</div>')+chips(["Logboek p. 1"])},
+    reveal("1-5-vraag","Onze onderzoeksvraag", vraagBox(VRAAG1)+'<div class="box"><span class="lab">Doe nu</span>Schrijf de vraag over in je logboek.</div>')+chips(["Logboek p. 1"])},
   {deel:"Onderzoek", titel:"Lees je eigen bron", min:6, body:
     '<div class="do"><p>Iedereen is expert van <b>één invalshoek</b> en leest enkel zijn eigen bronkaart (dossier p. 1).</p>'+
     '<p><b>Markeer het belangrijkste feit</b> en duid aan: feit uit onderzoek, claim van het bedrijf of historische gebeurtenis.</p></div>'+
@@ -202,7 +211,7 @@ function stappen1(g){
     '<div class="box say"><span class="lab">Zo begin je</span>‘Mijn bron is … Het belangrijkste feit: … Dat is een feit uit onderzoek / een claim van het bedrijf / een historische gebeurtenis.’</div>'},
   {deel:"Onderzoek", titel:"Doe-opdracht samen", min:8, body:
     '<div class="do"><p>Maak samen de doe-opdracht op <b>pagina 2 van het dossier</b>.</p><p>Iedereen rekent of denkt mee. De expert strategie noteert.</p></div>'+
-    reveal("1-8-hulp","Hulp nodig? Tik hier",'<div class="box">'+b.hulp+'</div>')+
+    reveal("1-8-hulp","Hulp nodig? Tik hier",'<div class="box">'+b.hulp+'</div>',0.5)+
     chips(["Dossier p. 2"],"Paraaf 1: de leerkracht komt langs in je logboek")},
   {deel:"Onderzoek", titel:"A3 · deel 1: ons bewijs", min:6, body:
     '<div class="do"><p>Elke expert vult <b>tegelijk zijn eigen rij</b> in: het belangrijkste feit, de bron (organisatie en datum) en de soort informatie.</p>'+
@@ -221,7 +230,7 @@ function stappen1(g){
   {deel:"Wat leren we?", titel:"Wat is een bedrijfsstrategie?", min:3, body:
     '<div class="do"><p>Denk even zelf na en bespreek met je buur: wat is het <b>grootste verschil</b> tussen de vijf strategieën, en wat hebben ze <b>gemeen</b>?</p>'+
     '<p>Daarna formuleert de klas wat een <b>bedrijfsstrategie</b> is.</p></div>'+
-    reveal("1-12-omschrijving","Toon de omschrijving (pas na het klasgesprek)",'<div class="box say"><span class="lab">Schrijf over in je logboek</span>'+OMSCHRIJVING+'</div>')+
+    reveal("1-12-omschrijving","De omschrijving van een bedrijfsstrategie",'<div class="box say"><span class="lab">Schrijf over in je logboek</span>'+OMSCHRIJVING+'</div>')+
     chips(["Logboek p. 1"])}
   ];
 }
@@ -240,7 +249,7 @@ function rondeStap(g,r){
     '<li><b>Luisteraars</b> vullen de rij van dit bedrijf in (logboek p. 2 en 3) en stellen één vraag.</li>'+
     '<li><b>Controle:</b> de ambassadeur leest de fiche voor. Verbeter in een andere kleur.</li>'+
     '<li><b>Bij het signaal</b> gaat de ambassadeur naar de volgende groep.</li></ol>'+
-    reveal("2-r"+r+"-fiche","Fiche van "+BED[g].n+" (ambassadeur: pas bij punt 3)",fiche)+
+    reveal("2-r"+r+"-fiche","Fiche van "+BED[g].n+" (voor de ambassadeur)",fiche,0.5)+
     '<div class="box"><span class="lab">Let op</span>Je eigen bedrijf vul je niet in: streep het door. De ambassadeur neemt de iPad mee.</div>'+
     chips(["A3-bedrijfsprofiel","Kleurkaartjes","Logboek p. 2–3"], r===4 ? "Paraaf 3: de leerkracht controleert je matrix" : "")};
 }
@@ -258,7 +267,7 @@ function stappen2(g){
   {deel:"Start", titel:"De stelling", min:4, body:
     '<div class="stelling">'+STELLING+'</div>'+
     '<div class="do"><p><b>Sta op</b> als je akkoord bent, <b>blijf zitten</b> als je niet akkoord bent. Leg uit waarom.</p></div>'+
-    reveal("2-1-vraag","Toon onze vraag (nadat de klas ze gezegd heeft)", vraagBox(VRAAG2)+'<div class="box"><span class="lab">Doe nu</span>Schrijf de vraag boven je vergelijkingsmatrix.</div>')+chips(["Logboek p. 2"])},
+    reveal("2-1-vraag","Onze vraag", vraagBox(VRAAG2)+'<div class="box"><span class="lab">Doe nu</span>Schrijf de vraag boven je vergelijkingsmatrix.</div>')+chips(["Logboek p. 2"])},
   {deel:"Beurs", titel:"De beurs: zo werkt het", min:1, body:
     '<div class="do"><p>Je hoort van de <b>vier andere bedrijven</b> hoe ze geld verdienen en wie de prijs betaalt.</p>'+
     '<p>In elke ronde reist <b>één ambassadeur</b> van jullie groep met jullie A3 naar een andere groep. De anderen blijven zitten en luisteren naar de ambassadeur die bij hen komt.</p></div>'+
@@ -267,7 +276,7 @@ function stappen2(g){
   rondeStap(g,1), rondeStap(g,2), rondeStap(g,3), rondeStap(g,4),
   {deel:"Beslis", titel:"Wie betaalt de prijs?", min:3, body:
     '<div class="do"><p>Bespreek in je groep: wat hebben we gehoord? Welke kosten dragen anderen dan het bedrijf zelf?</p><p>Twee groepen antwoorden op de vraag van lesuur 1.</p></div>'+
-    reveal("2-7-conclusie","Toon de conclusie (nadat de klas ze gezegd heeft)",'<div class="box say"><span class="lab">Conclusie van de klas</span>'+CONCLUSIE+'</div>')+
+    reveal("2-7-conclusie","De conclusie van de klas",'<div class="box say"><span class="lab">Conclusie van de klas</span>'+CONCLUSIE+'</div>')+
     '<div class="box"><span class="lab">Doe nu</span>Schrijf de conclusie in je eigen woorden op logboek p. 3.</div>'+chips(["Logboek p. 3"])},
   {deel:"Beslis", titel:"De Oxfam-som", min:3, body:
     '<div class="do"><p>Een T-shirt van <b>€ 29</b>: ongeveer <b>0,6 %</b> gaat naar het loon van de arbeiders.</p>'+
@@ -312,6 +321,7 @@ function tick(){
   var go = el.querySelector("[data-t=go]");
   go.textContent = t.end ? "Pauze" : (t.done ? "Opnieuw" : (t.left < st.min*60 ? "Verder" : "Start"));
   el.querySelector(".lbl").textContent = (t.done && s<=0) ? "Tijd om! Rond af en ga naar de volgende stap." : "Tijd voor deze stap: "+st.min+" min";
+  unlockReveals(st,k);
 }
 setInterval(tick,250);
 document.addEventListener("visibilitychange",tick);
@@ -322,6 +332,8 @@ function render(){
   if(!S.g){ return home(); }
   var g = S.g, b = BED[g], list = stappen(g,S.les), i = S.i[S.les];
   if(i<0) i = S.i[S.les] = 0;
+  if(!S.o) S.o = {};
+  var kk = tkey(S.les,i); if(!S.o[kk]){ S.o[kk] = Date.now(); save(); }
   document.documentElement.style.setProperty("--c",KLEUR[g]);
   var h = '<div class="top"><div class="wrap"><div class="who"><div class="k">Groep '+g+'</div><div class="n">'+b.n+'</div><div class="mn">'+b.mn+'</div></div>'+
           '<button class="wissel" data-act="wissel">Andere groep</button></div></div><div class="wrap">'+
@@ -366,7 +378,7 @@ function home(){
 document.addEventListener("click",function(e){
   var el = e.target.closest("button"); if(!el) return;
   var d = el.dataset;
-  if(d.g){ if(S.owner!==d.g){ S.les = 1; S.i = {"1":0,"2":0}; S.t = {}; S.open = {}; } S.g = d.g; S.owner = d.g; save(); render(); window.scrollTo(0,0); return; }
+  if(d.g){ if(S.owner!==d.g){ S.les = 1; S.i = {"1":0,"2":0}; S.t = {}; S.open = {}; S.o = {}; } S.g = d.g; S.owner = d.g; save(); render(); window.scrollTo(0,0); return; }
   if(d.act==="wissel"){ S.g = null; save(); render(); return; }
   if(d.les){ S.les = +d.les; save(); render(); window.scrollTo(0,0); return; }
   if(d.go!==undefined){ S.i[S.les] = +d.go; save(); render(); return; }
